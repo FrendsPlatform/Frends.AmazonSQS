@@ -7,11 +7,11 @@ using Amazon.Runtime;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 
-
-#pragma warning disable 1591
-
-namespace Frends.Community.AWS.SQS
+namespace Frends.AmazonSQS
 {
+    /// <summary>
+    /// Provides a set of methods for working with Amazon Simple Queue Service (SQS).
+    /// </summary>
     public static class SQS
     {
         static private AmazonSQSClient GetAmazonSQSClient(bool useDefaultCredentials, AWSCredentials awsCredentials, Regions region)

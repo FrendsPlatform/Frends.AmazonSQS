@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="nunit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Frends.Community.AWS.SQS\Frends.Community.AWS.SQS.csproj" />
+    <ProjectReference Include="..\Frends.Community.AWS.SQS\Frends.AmazonSQS.csproj" />
   </ItemGroup>
 
 </Project>

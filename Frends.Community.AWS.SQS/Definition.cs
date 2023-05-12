@@ -1,11 +1,7 @@
-﻿#pragma warning disable 1591
-
-using Amazon;
-using Amazon.Runtime;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Frends.Community.AWS.SQS
+namespace Frends.AmazonSQS
 {
     /// <summary>
     /// Message parameters
@@ -156,14 +152,25 @@ namespace Frends.Community.AWS.SQS
     [DisplayName("Parameters")]
     public class CredentialsParameters
     {
+        /// <summary>
+        /// Gets or sets the access key used for authentication.
+        /// </summary>
+        /// <remarks>
+        /// This property is decorated with the DisplayFormat attribute to specify the data format string as "Expression".
+        /// </remarks>
         [DisplayFormat(DataFormatString = "Expression")]
         public string AccessKey { get; set; }
 
+        /// <summary>
+        /// Gets or sets the secret key used for authentication.
+        /// </summary>
+        /// <remarks>
+        /// This property is decorated with the DisplayFormat attribute to specify the data format string as "Expression", and the PasswordPropertyText attribute to indicate that this is a password field.
+        /// </remarks>
         [DisplayFormat(DataFormatString = "Expression")]
         [PasswordPropertyText]
         public string SecretKey { get; set; }
     }
-
     #region Enumerations
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -193,4 +200,3 @@ namespace Frends.Community.AWS.SQS
     
     #endregion
 }
-

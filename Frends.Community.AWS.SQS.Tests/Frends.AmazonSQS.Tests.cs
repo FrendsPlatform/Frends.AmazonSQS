@@ -1,9 +1,8 @@
-using Amazon.Runtime;
 using Amazon.SQS.Model;
 using NUnit.Framework;
 using System;
 
-namespace Frends.Community.AWS.SQS.Tests
+namespace Frends.AmazonSQS.Tests
 {
     [TestFixture]
     class BasicTests
@@ -46,16 +45,14 @@ namespace Frends.Community.AWS.SQS.Tests
             var input = new SendParameters
             {
                 QueueUrl = queueURL,
-                Message = $@"Frends.Community.AWS.SQS.Tests.SendMessage() test. 
-Datetime: {DateTime.Now.ToString("o")}
-"
+                Message = $@"Frends.Community.AWS.SQS.Tests.SendMessage() test.Datetime: {DateTime.Now:o}"
             };
 
             var options = new SendOptions
             {
                 DelaySeconds = 0,
                 MessageDeduplicationId = queueURL.Contains(".fifo") ? Guid.NewGuid().ToString() : "", // FIFO, ContentBasedDeduplication disabled
-                MessageGroupId = queueURL.Contains(".fifo") ? "1" : ""            // FIFO
+                MessageGroupId = queueURL.Contains(".fifo") ? "1" : "" // FIFO
             };
 
             var awsOptions = new AWSOptions
