@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Frends.AmazonSQS
+namespace Frends.AmazonSQS.Send
 {
     /// <summary>
     /// Message parameters
@@ -76,7 +76,6 @@ namespace Frends.AmazonSQS
         [PasswordPropertyText]
         public dynamic AWSCredentials { get; set; }
     }
-
 
     /// <summary>
     /// Message parameters

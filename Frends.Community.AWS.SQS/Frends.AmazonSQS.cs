@@ -7,7 +7,7 @@ using Amazon.Runtime;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 
-namespace Frends.AmazonSQS
+namespace Frends.AmazonSQS.Send
 {
     /// <summary>
     /// Provides a set of methods for working with Amazon Simple Queue Service (SQS).
@@ -47,7 +47,8 @@ namespace Frends.AmazonSQS
         /// <param name="awsOptions">AWS options</param>
         /// <param name="cancellationToken"></param>
         /// <returns>{SendMessageResponse} </returns>
-        public static async Task<dynamic> SendMessage([PropertyTab]SendParameters input, [PropertyTab]SendOptions options, [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
+        public static async Task<dynamic> SendMessage([PropertyTab]SendParameters input, [PropertyTab]SendOptions options,
+            [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
         {
             var sqsClient = GetAmazonSQSClient(awsOptions.UseDefaultCredentials, awsOptions.AWSCredentials, awsOptions.Region);
 
@@ -89,7 +90,8 @@ namespace Frends.AmazonSQS
         /// <param name="awsOptions">AWS options</param>
         /// <param name="cancellationToken"></param>
         /// <returns>ReceiveMessageResponse</returns>
-        public static async Task<dynamic> ReceiveMessage([PropertyTab] ReceiveParameters input, [PropertyTab]ReceiveOptions options, [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
+        public static async Task<dynamic> ReceiveMessage([PropertyTab] ReceiveParameters input, [PropertyTab]ReceiveOptions options, 
+            [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
         {
             var sqsClient = GetAmazonSQSClient(awsOptions.UseDefaultCredentials, awsOptions.AWSCredentials, awsOptions.Region);
 
@@ -119,7 +121,6 @@ namespace Frends.AmazonSQS
                     await sqsClient.DeleteMessageAsync(deleteMessageRequest);
                 }
             }
-
             return response;
         }
 
@@ -130,7 +131,8 @@ namespace Frends.AmazonSQS
         /// <param name="awsOptions">AWS options</param>
         /// <param name="cancellationToken"></param>
         /// <returns>DeleteMessageResponse</returns>
-        public static async Task<dynamic> DeleteMessage([PropertyTab] DeleteParameters input, [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
+        public static async Task<dynamic> DeleteMessage([PropertyTab] DeleteParameters input, [PropertyTab] AWSOptions awsOptions,
+            CancellationToken cancellationToken)
         {
             var sqsClient = GetAmazonSQSClient(awsOptions.UseDefaultCredentials, awsOptions.AWSCredentials, awsOptions.Region);
 
@@ -200,4 +202,3 @@ namespace Frends.AmazonSQS
         }
     }
 }
-

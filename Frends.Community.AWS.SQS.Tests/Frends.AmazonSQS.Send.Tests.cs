@@ -2,7 +2,7 @@ using Amazon.SQS.Model;
 using NUnit.Framework;
 using System;
 
-namespace Frends.AmazonSQS.Tests
+namespace Frends.AmazonSQS.Send.Tests
 {
     [TestFixture]
     class BasicTests
@@ -26,7 +26,6 @@ namespace Frends.AmazonSQS.Tests
                 AccessKey = accessKey,
                 SecretKey = secretKey
             };
-
         }
 
         /// <summary>
