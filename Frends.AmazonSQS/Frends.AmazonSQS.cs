@@ -6,15 +6,16 @@ using Amazon;
 using Amazon.Runtime;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using Frends.AmazonSQS.Definitions;
 
-namespace Frends.AmazonSQS.Send
-{
-    /// <summary>
-    /// Provides a set of methods for working with Amazon Simple Queue Service (SQS).
-    /// </summary>
-    public static class SQS
+namespace Frends.Amazon.SQS;
+
+/// <summary>
+/// Provides methods for interacting with Amazon Simple Queue Service (SQS).
+/// </summary>
+public static class SQS
     {
-        static private AmazonSQSClient GetAmazonSQSClient(bool useDefaultCredentials, AWSCredentials awsCredentials, Regions region)
+        static private AmazonSQSClient GetAmazonSQSClient(bool useDefaultCredentials, AWSCredentials awsCredentials, AmazonSQS.Definitions.Regions region)
         {
             // App.config or EC2 instance credentials?
             if( useDefaultCredentials == true )
@@ -39,59 +40,75 @@ namespace Frends.AmazonSQS.Send
             }
         }
 
-        /// <summary>
-        /// Sends a message to the AWS Simple Queue Service
-        /// </summary>
-        /// <param name="input">Message data</param>
-        /// <param name="options">Message options</param>
-        /// <param name="awsOptions">AWS options</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>{SendMessageResponse} </returns>
-        public static async Task<dynamic> SendMessage([PropertyTab]SendParameters input, [PropertyTab]SendOptions options,
-            [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
+    /// <summary>
+    /// Sends a message to the AWS Simple Queue Service
+    /// </summary>
+    /// <param name="input">Message data</param>
+    /// <param name="options">Message options</param>
+    /// <param name="awsOptions">AWS options</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>{SendMessageResponse} </returns>
+    /// <example>
+    /// SendParameters parameters = new SendParameters
+    /// {
+    ///     QueueUrl = "https://sqs.us-west-2.amazonaws.com/1234567890/my-queue",
+    ///     Message = "Hello, world!"
+    /// };
+    ///
+    /// SendOptions options = new SendOptions
+    /// {
+    ///     MessageGroupId = "group-1",
+    ///     DelaySeconds = 5
+    /// };
+    /// SendMessageResponse response = SQS.SendMessage(parameters, options);
+    /// </example>
+    public static async Task<dynamic> SendMessage([PropertyTab]SendParameters input, [PropertyTab]SendOptions options, [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
         {
             var sqsClient = GetAmazonSQSClient(awsOptions.UseDefaultCredentials, awsOptions.AWSCredentials, awsOptions.Region);
 
             var request = new SendMessageRequest
             {
-                //MessageAttributes = new Dictionary<string, MessageAttributeValue>
-                //{
-                //    {
-                //        "CustomAttribute", new MessageAttributeValue
-                //        { DataType = "String", StringValue = "Esan testi" }
-                //    }
-                //},
                 MessageBody = input.Message,
                 QueueUrl = input.QueueUrl,             
                 DelaySeconds = options.DelaySeconds,
             };
             
-            // FIFO only
             if( !string.IsNullOrEmpty(options.MessageGroupId))
             {
                 request.MessageGroupId = options.MessageGroupId;
             }
 
-            // FIFO only
             if (!string.IsNullOrEmpty(options.MessageDeduplicationId))
             {
                 request.MessageDeduplicationId = options.MessageDeduplicationId;
             }
 
-            // https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SQS/TSendMessageResponse.html
             return await sqsClient.SendMessageAsync(request, cancellationToken);
         }
 
-        /// <summary>
-        /// Receives message(s) from the AWS Simple Queue Service
-        /// </summary>
-        /// <param name="input">Receive parameters</param>
-        /// <param name="options">Receive options</param>
-        /// <param name="awsOptions">AWS options</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>ReceiveMessageResponse</returns>
-        public static async Task<dynamic> ReceiveMessage([PropertyTab] ReceiveParameters input, [PropertyTab]ReceiveOptions options, 
-            [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
+    /// <summary>
+    /// Receives message(s) from the AWS Simple Queue Service
+    /// </summary>
+    /// <param name="input">Receive parameters</param>
+    /// <param name="options">Receive options</param>
+    /// <param name="awsOptions">AWS options</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>ReceiveMessageResponse</returns>
+    ///  <example>
+    /// ReceiveParameters parameters = new ReceiveParameters
+    /// {
+    ///     QueueUrl = "https://sqs.us-west-2.amazonaws.com/1234567890/my-queue",
+    ///     MaxNumberOfMessages = 10
+    /// };
+    /// 
+    /// ReceiveMessageResponse response = SQS.ReceiveMessages(parameters);
+    ///
+    /// foreach (var message in response.Messages)
+    /// {
+    ///     Console.WriteLine("Received message. MessageId: " + message.MessageId);
+    /// }
+    /// </example>
+    public static async Task<dynamic> ReceiveMessage([PropertyTab] ReceiveParameters input, [PropertyTab]ReceiveOptions options, [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
         {
             var sqsClient = GetAmazonSQSClient(awsOptions.UseDefaultCredentials, awsOptions.AWSCredentials, awsOptions.Region);
 
@@ -104,23 +121,8 @@ namespace Frends.AmazonSQS.Send
                 WaitTimeSeconds = options.WaitTimeSeconds
             };
 
-            // https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SQS/TReceiveMessageResponse.html
             var response = await sqsClient.ReceiveMessageAsync(request, cancellationToken);
 
-            // Remove messages after receiving?
-            if (response.Messages.Count > 0 && options.DeleteMessageAfterReceiving)
-            {
-                foreach (var message in response.Messages)
-                {
-                    var deleteMessageRequest = new DeleteMessageRequest()
-                    {
-                        QueueUrl = input.QueueUrl,
-                        ReceiptHandle = message.ReceiptHandle
-                    };
-                    // https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SQS/TDeleteMessageResponse.html
-                    await sqsClient.DeleteMessageAsync(deleteMessageRequest);
-                }
-            }
             return response;
         }
 
@@ -131,8 +133,7 @@ namespace Frends.AmazonSQS.Send
         /// <param name="awsOptions">AWS options</param>
         /// <param name="cancellationToken"></param>
         /// <returns>DeleteMessageResponse</returns>
-        public static async Task<dynamic> DeleteMessage([PropertyTab] DeleteParameters input, [PropertyTab] AWSOptions awsOptions,
-            CancellationToken cancellationToken)
+        public static async Task<dynamic> DeleteMessage([PropertyTab] DeleteParameters input, [PropertyTab] AWSOptions awsOptions, CancellationToken cancellationToken)
         {
             var sqsClient = GetAmazonSQSClient(awsOptions.UseDefaultCredentials, awsOptions.AWSCredentials, awsOptions.Region);
 
@@ -145,17 +146,23 @@ namespace Frends.AmazonSQS.Send
             return await sqsClient.DeleteMessageAsync(delRequest, cancellationToken);
         }
 
-        /// <summary>
-        /// Get basic set of credentials consisting of an AccessKey and SecretKey 
-        /// </summary>
-        /// <param name="options">Input</param>
-        /// <returns></returns>
-        public static dynamic GetBasicAWSCredentials(CredentialsParameters options)
+    /// <summary>
+    /// Get basic set of credentials consisting of an AccessKey and SecretKey 
+    /// </summary>
+    /// <param name="options">Input</param>
+    /// <example>
+    /// CredentialsParameters parameters = new CredentialsParameters
+    /// {
+    ///     AccessKey = "YOUR_ACCESS_KEY",
+    ///     SecretKey = "YOUR_SECRET_KEY"
+    /// };
+    /// </example>
+    public static dynamic GetBasicAWSCredentials(AmazonSQS.Definitions.CredentialsParameters options)
         {
             return new BasicAWSCredentials(options.AccessKey, options.SecretKey);
         }
 
-        private static RegionEndpoint RegionSelection(Regions region)
+        private static RegionEndpoint RegionSelection(AmazonSQS.Definitions.Regions region)
         {
             switch (region)
             {
@@ -201,4 +208,3 @@ namespace Frends.AmazonSQS.Send
             }
         }
     }
-}
