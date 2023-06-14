@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Frends.AmazonSQS\Frends.AmazonSQS.csproj" />
-    <ProjectReference Include="..\Frends.Community.AWS.SQS\Frends.AmazonSQS.csproj" />
   </ItemGroup>
 
 </Project>

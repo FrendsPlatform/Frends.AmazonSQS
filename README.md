@@ -1,4 +1,4 @@
-# Frends.Amazon.SQS
+# Frends.AmazonSQS
 
 FRENDS Amazon Task for SQS
 
@@ -22,7 +22,7 @@ https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view i
 
 Clone a copy of the repo
 
-`git clone https://github.com/CommunityHiQ/Frends.Community.AWS.SQS.git`
+`git clone https://github.com/FrendsPlatform/Frends.AmazonSQS.git`
 
 Rebuild the project
 

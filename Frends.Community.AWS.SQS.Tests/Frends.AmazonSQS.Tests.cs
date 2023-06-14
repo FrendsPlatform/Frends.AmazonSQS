@@ -34,6 +34,15 @@ class BasicTests
     /// <summary>
     /// Send a message to the FIFO queue
     /// </summary>
+    /// <example>
+    /// [Test]
+    /// [Order(1)]
+    /// public void SendMessage()
+    /// {           
+    ///     var ret = SendTestMessage();
+    ///     Assert.IsTrue(((SendMessageResponse)ret).HttpStatusCode == System.Net.HttpStatusCode.OK);
+    /// }
+    /// </example>
     [Test]
     [Order(1)]
     public void SendMessage()
@@ -138,7 +147,7 @@ Datetime: {DateTime.Now.ToString("o")}
     /// </summary>
     /// <param name="name">Name</param>
     /// <returns>The value of the environment variable</returns>
-    /// <example>string apiKey = GetEnvValue("API_KEY");</example>
+    /// <example>string apiKey = GetEnvValue("API_KEY")</example>
     private string GetConfigValue(string name)
     {
         return Environment.GetEnvironmentVariable(name);
