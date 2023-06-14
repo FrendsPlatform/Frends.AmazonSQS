@@ -6,7 +6,7 @@
     <authors>Frends</authors>
     <copyright>Frends</copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/CommunityHiQ/Frends.Community.AWS.SQS</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/FrendsPlatform/Frends.AmazonSQS.git</PackageProjectUrl>
     <IncludeSource>true</IncludeSource>
     <PackageTags>Frends</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
