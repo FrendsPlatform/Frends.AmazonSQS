@@ -1,0 +1,77 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Frends.AmazonSQS.Receive/1.0.0": {
+        "dependencies": {
+          "AWSSDK.SQS": "3.3.102.81",
+          "Microsoft.CSharp": "4.7.0",
+          "System.ComponentModel.Annotations": "4.7.0"
+        },
+        "runtime": {
+          "Frends.AmazonSQS.Receive.dll": {}
+        }
+      },
+      "AWSSDK.Core/3.3.105.3": {
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.105.3"
+          }
+        }
+      },
+      "AWSSDK.SQS/3.3.102.81": {
+        "dependencies": {
+          "AWSSDK.Core": "3.3.105.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.SQS.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.102.81"
+          }
+        }
+      },
+      "Microsoft.CSharp/4.7.0": {},
+      "System.ComponentModel.Annotations/4.7.0": {}
+    }
+  },
+  "libraries": {
+    "Frends.AmazonSQS.Receive/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AWSSDK.Core/3.3.105.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dp5pXnXkn9sFghX4RTPz0OWqH8EqtnE75KBM36tlhXxz3+eniuUrQChwCE8WvV/3Kr6tLCDE6BGBbrZsPvtGlA==",
+      "path": "awssdk.core/3.3.105.3",
+      "hashPath": "awssdk.core.3.3.105.3.nupkg.sha512"
+    },
+    "AWSSDK.SQS/3.3.102.81": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6YSnKNAzNSwJJnSr+jq7Cu1JgAFYKUruGHfcC9Pyxygg1kXXLN6z91jEUx2SVn3ylm9Z7DnPPP2w5E3hXLnSmA==",
+      "path": "awssdk.sqs/3.3.102.81",
+      "hashPath": "awssdk.sqs.3.3.102.81.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
+    },
+    "System.ComponentModel.Annotations/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0YFqjhp/mYkDGpU0Ye1GjE53HMp9UVfGN7seGpAMttAC0C40v5gw598jCgpbBLMmCo0E5YRLBv5Z2doypO49ZQ==",
+      "path": "system.componentmodel.annotations/4.7.0",
+      "hashPath": "system.componentmodel.annotations.4.7.0.nupkg.sha512"
+    }
+  }
+}

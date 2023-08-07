@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "0YsDwBLI2jqPTc1fd4muPtRp0BhQfFFBX5bnhEWjqk+lMXV+MQX01oYNRi1TTrw4G7JYwDcB0phqhnkTOt6i2Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\virtari\\repos\\Frends.AmazonSQS\\Frends.AmazonSQS.Receive\\Frends.AmazonSQS.Receive\\Frends.AmazonSQS.Receive.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\virtari\\.nuget\\packages\\awssdk.core\\3.3.105.3\\awssdk.core.3.3.105.3.nupkg.sha512",
+    "C:\\Users\\virtari\\.nuget\\packages\\awssdk.sqs\\3.3.102.81\\awssdk.sqs.3.3.102.81.nupkg.sha512",
+    "C:\\Users\\virtari\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\virtari\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

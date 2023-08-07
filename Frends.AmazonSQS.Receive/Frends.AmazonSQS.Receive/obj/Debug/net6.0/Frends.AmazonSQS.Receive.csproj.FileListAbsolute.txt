@@ -1,0 +1,15 @@
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\bin\Debug\net6.0\FrendsTaskMetadata.json
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\bin\Debug\net6.0\Frends.AmazonSQS.Receive.deps.json
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\bin\Debug\net6.0\Frends.AmazonSQS.Receive.dll
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\bin\Debug\net6.0\Frends.AmazonSQS.Receive.pdb
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\bin\Debug\net6.0\Frends.AmazonSQS.Receive.xml
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.AssemblyInfoInputs.cache
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.AssemblyInfo.cs
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.csproj.CoreCompileInputs.cache
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.dll
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\ref\Frends.AmazonSQS.Receive.dll
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.xml
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.pdb
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\Frends.AmazonSQS.Receive.csproj.AssemblyReference.cache
+C:\Users\virtari\repos\Frends.AmazonSQS\Frends.AmazonSQS.Receive\Frends.AmazonSQS.Receive\obj\Debug\net6.0\refint\Frends.AmazonSQS.Receive.dll
