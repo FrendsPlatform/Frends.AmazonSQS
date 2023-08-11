@@ -15,7 +15,7 @@ public class UnitTests
     private readonly string _secretKey = Environment.GetEnvironmentVariable("AWS_SQS_SECRET_ACCESS_KEY") ?? throw new ArgumentException("");
     private readonly string _queueURL = Environment.GetEnvironmentVariable("AWS_SQS_QUEUE") ?? throw new ArgumentException("");
     private readonly Region _region = 0;
-    
+
     private Input _input;
     private Connection _connection;
     private Options _options;
