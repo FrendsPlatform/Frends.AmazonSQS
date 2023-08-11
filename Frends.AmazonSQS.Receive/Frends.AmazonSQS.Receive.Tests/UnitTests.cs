@@ -11,10 +11,10 @@ namespace Frends.AmazonSQS.Receive.Tests;
 [TestFixture]
 public class UnitTests
 {
-    private readonly string _accessKey = Environment.GetEnvironmentVariable("AWS.SQS.aws_access_key_id") ?? throw new ArgumentException("");
-    private readonly string _secretKey = Environment.GetEnvironmentVariable("AWS.SQS.aws_secret_access_key") ?? throw new ArgumentException("");
-    private readonly string _queueURL = Environment.GetEnvironmentVariable("AWS.SQS.aws_sqs_queue") ?? throw new ArgumentException("");
-    private readonly Region _region = (Region)int.Parse(Environment.GetEnvironmentVariable("AWS.SQS.aws_sqs_region") ?? throw new ArgumentException(""));
+    private readonly string _accessKey = Environment.GetEnvironmentVariable("AWS_SQS_ACCESS_KEY_ID") ?? throw new ArgumentException("");
+    private readonly string _secretKey = Environment.GetEnvironmentVariable("AWS_SQS_SECRET_ACCESS_KEY") ?? throw new ArgumentException("");
+    private readonly string _queueURL = Environment.GetEnvironmentVariable("AWS_SQS_QUEUE") ?? throw new ArgumentException("");
+    private readonly Region _region = 0;
     
     private Input _input;
     private Connection _connection;
