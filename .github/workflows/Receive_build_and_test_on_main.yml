@@ -13,13 +13,11 @@ jobs:
     uses: FrendsPlatform/FrendsTasks/.github/workflows/linux_build_main.yml@main
     with:
       workdir: Frends.AmazonSQS.Receive
-      env_var_name_1: AWS.SQS.aws_access_key_id
-      env_var_name_2: AWS.SQS.aws_secret_access_key
-      env_var_name_3: AWS.SQS.aws_sqs_queue
-      env_var_name_4: AWS.SQS.aws_sqs_region
+      env_var_name_1: AWS_SQS_ACCESS_KEY_ID
+      env_var_name_2: AWS_SQS_SECRET_ACCESS_KEY
+      env_var_name_3: AWS_SQS_QUEUE
     secrets:
       badge_service_api_key: ${{ secrets.BADGE_SERVICE_API_KEY }}
-      env_var_value_1: ${{ secrets.AWS.SQS.aws_access_key_id }}
-      env_var_value_2: ${{ secrets.AWS.SQS.aws_secret_access_key }}
-      env_var_value_3: ${{ secrets.AWS.SQS.aws_sqs_queue }}
-      env_var_value_4: ${{ secrets.AWS.SQS.aws_sqs_region }}
+      env_var_value_1: ${{ secrets.AWS_SQS_ACCESS_KEY_ID }}
+      env_var_value_2: ${{ secrets.AWS_SQS_SECRET_ACCESS_KEY }}
+      env_var_value_3: ${{ secrets.AWS_SQS_QUEUE }}
