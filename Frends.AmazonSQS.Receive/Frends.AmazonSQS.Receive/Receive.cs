@@ -18,7 +18,7 @@ namespace Frends.AmazonSQS.Receive;
 public class AmazonSQS
 {
     /// <summary>
-    /// 
+    /// Frends Task for receiving messages from AmazonSQS.
     /// [Documentation](https://tasks.frends.com/tasks/frends-tasks/Frends.AmazonSQS.Receive)
     /// </summary>
     /// <param name="connection">Connection parameters.</param>
