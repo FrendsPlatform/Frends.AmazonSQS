@@ -18,7 +18,7 @@ public class Result
     public string MessageId { get; private set; }
 
     /// <summary>
-    /// HTTP status code of the operation.
+    /// HTTP status of the operation.
     /// </summary>
     /// <example>OK</example>
     public string HttpStatus { get; private set; }
