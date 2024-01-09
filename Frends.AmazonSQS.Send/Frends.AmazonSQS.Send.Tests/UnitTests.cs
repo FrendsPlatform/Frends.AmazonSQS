@@ -23,7 +23,7 @@ public class UnitTests
     [TestInitialize]
     public void SetUp()
     {
-        _msg = $"Frends.AmazonSQS.Send.Tests.\nDatetime: {DateTime.Now:o}";
+        _msg = $"Frends.AmazonSQS.Send.Tests.\nDatetime:  {DateTime.Now:o}";
         _input = new Input
         {
             QueueUrl = _queueURL,
