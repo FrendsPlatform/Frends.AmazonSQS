@@ -1,0 +1,23 @@
+name: Send Main
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Frends.AmazonSQS.Send/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: FrendsPlatform/FrendsTasks/.github/workflows/linux_build_main.yml@main
+    with:
+      workdir: Frends.AmazonSQS.Send
+      env_var_name_1: AWS_SQS_ACCESS_KEY_ID
+      env_var_name_2: AWS_SQS_SECRET_ACCESS_KEY
+      env_var_name_3: AWS_SQS_QUEUE
+    secrets:
+      badge_service_api_key: ${{ secrets.BADGE_SERVICE_API_KEY }}
+      env_var_value_1: ${{ secrets.AWS_SQS_ACCESS_KEY_ID }}
+      env_var_value_2: ${{ secrets.AWS_SQS_SECRET_ACCESS_KEY }}
+      env_var_value_3: ${{ secrets.AWS_SQS_QUEUE }}
