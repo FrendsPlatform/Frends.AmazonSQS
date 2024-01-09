@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Frends.AmazonSQS.Send;
 
 /// <summary>
-/// Amazon S3 Task.
+/// AmazonSQS Task.
 /// </summary>
 public class AmazonSQS
 {
@@ -51,7 +51,7 @@ public class AmazonSQS
         }
     }
 
-    internal static AmazonSQSClient GetAmazonSQSClient(bool useDefaultCredentials, AWSCredentials awsCredentials, Regions region)
+    private static AmazonSQSClient GetAmazonSQSClient(bool useDefaultCredentials, AWSCredentials awsCredentials, Regions region)
     {
         // App.config or EC2 instance credentials?
         if (useDefaultCredentials)

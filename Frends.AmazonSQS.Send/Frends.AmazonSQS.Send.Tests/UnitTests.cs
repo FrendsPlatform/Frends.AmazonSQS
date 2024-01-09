@@ -1,4 +1,6 @@
+using Amazon;
 using Amazon.Runtime;
+using Amazon.SQS;
 using Amazon.SQS.Model;
 using Frends.AmazonSQS.Send.Definitions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,9 +17,9 @@ public class UnitTests
     private readonly string _secretKey = Environment.GetEnvironmentVariable("AWS_SQS_SECRET_ACCESS_KEY") ?? throw new ArgumentException("");
     private readonly string _queueURL = Environment.GetEnvironmentVariable("AWS_SQS_QUEUE") ?? throw new ArgumentException("");
     private readonly Regions _region = 0;
-    private Input _input;
-    private Connection _connection;
-    private Options _options;
+    private Input _input = new();
+    private Connection _connection = new();
+    private Options _options = new();
     private string _msg = "";
 
     [TestInitialize]
@@ -108,7 +110,7 @@ public class UnitTests
     private async Task<bool> ReadTestMessage()
     {
         Thread.Sleep(1500); // Options.DelaySeconds
-        using var sqsclient = AmazonSQS.GetAmazonSQSClient(false, new BasicAWSCredentials(_accessKey, _secretKey), _region);
+        using var sqsclient = new AmazonSQSClient(new BasicAWSCredentials(_accessKey, _secretKey), RegionEndpoint.EUNorth1);
         var request = new ReceiveMessageRequest { QueueUrl = _queueURL };
         var response = await sqsclient.ReceiveMessageAsync(request, default);
         if (response.Messages.Count > 0)
