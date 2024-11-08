@@ -83,19 +83,14 @@ public class AmazonSQS
         if (connection.UseDefaultCredentials)
             return null;
 
-        switch (connection.CredentialsType)
+        return connection.CredentialsType switch
         {
-            case AWSCredentialsType.BasicAWSCredentials:
-                return new BasicAWSCredentials(connection.AccessKey, connection.SecretKey);
-            case AWSCredentialsType.AnonymousAWSCredentials:
-                return new AnonymousAWSCredentials();
-            case AWSCredentialsType.EnvironmentAWSCredentials:
-                return new EnvironmentVariablesAWSCredentials();
-            case AWSCredentialsType.SessionAWSCredentials:
-                return new SessionAWSCredentials(connection.AccessKey, connection.SecretKey, connection.SessionToken);
-            default:
-                throw new InvalidEnumArgumentException("Unknown credentials type.");
-        }
+            AWSCredentialsType.BasicAWSCredentials => new BasicAWSCredentials(connection.AccessKey, connection.SecretKey),
+            AWSCredentialsType.AnonymousAWSCredentials => new AnonymousAWSCredentials(),
+            AWSCredentialsType.EnvironmentAWSCredentials => new EnvironmentVariablesAWSCredentials(),
+            AWSCredentialsType.SessionAWSCredentials => new SessionAWSCredentials(connection.AccessKey, connection.SecretKey, connection.SessionToken),
+            _ => throw new InvalidEnumArgumentException("Unknown credentials type."),
+        };
     }
 
     /// <summary>
@@ -104,46 +99,27 @@ public class AmazonSQS
     [ExcludeFromCodeCoverage]
     private static RegionEndpoint RegionSelection(Region region)
     {
-        switch (region)
+        return region switch
         {
-            case Region.EuNorth1:
-                return RegionEndpoint.EUNorth1;
-            case Region.EuWest1:
-                return RegionEndpoint.EUWest1;
-            case Region.EuWest2:
-                return RegionEndpoint.EUWest2;
-            case Region.EuWest3:
-                return RegionEndpoint.EUWest3;
-            case Region.EuCentral1:
-                return RegionEndpoint.EUCentral1;
-            case Region.ApSoutheast1:
-                return RegionEndpoint.APSoutheast1;
-            case Region.ApSoutheast2:
-                return RegionEndpoint.APSoutheast2;
-            case Region.ApNortheast1:
-                return RegionEndpoint.APNortheast1;
-            case Region.ApNortheast2:
-                return RegionEndpoint.APNortheast2;
-            case Region.ApSouth1:
-                return RegionEndpoint.APSouth1;
-            case Region.CaCentral1:
-                return RegionEndpoint.CACentral1;
-            case Region.CnNorth1:
-                return RegionEndpoint.CNNorth1;
-            case Region.CnNorthWest1:
-                return RegionEndpoint.CNNorthWest1;
-            case Region.SaEast1:
-                return RegionEndpoint.SAEast1;
-            case Region.UsEast1:
-                return RegionEndpoint.USEast1;
-            case Region.UsEast2:
-                return RegionEndpoint.USEast2;
-            case Region.UsWest1:
-                return RegionEndpoint.USWest1;
-            case Region.UsWest2:
-                return RegionEndpoint.USWest2;
-            default:
-                return RegionEndpoint.EUNorth1;
-        }
+            Region.EuNorth1 => RegionEndpoint.EUNorth1,
+            Region.EuWest1 => RegionEndpoint.EUWest1,
+            Region.EuWest2 => RegionEndpoint.EUWest2,
+            Region.EuWest3 => RegionEndpoint.EUWest3,
+            Region.EuCentral1 => RegionEndpoint.EUCentral1,
+            Region.ApSoutheast1 => RegionEndpoint.APSoutheast1,
+            Region.ApSoutheast2 => RegionEndpoint.APSoutheast2,
+            Region.ApNortheast1 => RegionEndpoint.APNortheast1,
+            Region.ApNortheast2 => RegionEndpoint.APNortheast2,
+            Region.ApSouth1 => RegionEndpoint.APSouth1,
+            Region.CaCentral1 => RegionEndpoint.CACentral1,
+            Region.CnNorth1 => RegionEndpoint.CNNorth1,
+            Region.CnNorthWest1 => RegionEndpoint.CNNorthWest1,
+            Region.SaEast1 => RegionEndpoint.SAEast1,
+            Region.UsEast1 => RegionEndpoint.USEast1,
+            Region.UsEast2 => RegionEndpoint.USEast2,
+            Region.UsWest1 => RegionEndpoint.USWest1,
+            Region.UsWest2 => RegionEndpoint.USWest2,
+            _ => RegionEndpoint.EUNorth1,
+        };
     }
 }
