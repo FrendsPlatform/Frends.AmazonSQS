@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Frends.AmazonSQS.Send.Definitions;
+using Frends.AmazonSQS.Send.Helpers;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
