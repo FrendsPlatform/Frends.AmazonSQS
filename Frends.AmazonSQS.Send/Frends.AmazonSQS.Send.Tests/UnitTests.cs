@@ -35,7 +35,7 @@ public class UnitTests
         _options = new Options
         {
             DelaySeconds = -1,
-            ThrowExceptionOnError = true,
+            ThrowErrorOnFailure = true,
         };
 
         _connection = new Connection
@@ -88,17 +88,17 @@ public class UnitTests
     }
 
     [TestMethod]
-    public void SendTest_Invalid_AccessKey_ThrowExceptionOnError_True()
+    public void SendTest_Invalid_AccessKey_ThrowErrorOnFailure_True()
     {
         _connection.AccessKey = "FOO";
         Assert.ThrowsExceptionAsync<Amazon.SQS.AmazonSQSException>(async () => await AmazonSQS.Send(_input, _connection, _options, default));
     }
 
     [TestMethod]
-    public async Task SendTest_Invalid_AccessKey_ThrowExceptionOnError_False()
+    public async Task SendTest_Invalid_AccessKey_ThrowErrorOnFailure_False()
     {
         _connection.AccessKey = "FOO";
-        _options.ThrowExceptionOnError = false;
+        _options.ThrowErrorOnFailure = false;
         var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsFalse(result.Success);
         Assert.IsNull(result.MessageId);

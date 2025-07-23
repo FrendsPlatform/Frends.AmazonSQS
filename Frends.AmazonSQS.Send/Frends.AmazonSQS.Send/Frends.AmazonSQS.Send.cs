@@ -45,9 +45,11 @@ public class AmazonSQS
         }
         catch (Exception ex)
         {
-            if (options.ThrowExceptionOnError)
+            if (options.ThrowErrorOnFailure)
                 throw;
-            return new Result(false, null, null, 0, ex);
+            
+            var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure) ? ex : options.ErrorMessageOnFailure;
+            return new Result(false, null, null, 0, errorMessage);
         }
     }
 

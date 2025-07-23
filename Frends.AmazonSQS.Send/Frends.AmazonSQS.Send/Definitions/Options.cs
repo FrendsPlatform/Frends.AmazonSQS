@@ -13,7 +13,15 @@ public class Options
     /// </summary>
     /// <example>true</example>
     [DefaultValue(true)]
-    public bool ThrowExceptionOnError { get; set; }
+    public bool ThrowErrorOnFailure { get; set; }
+
+    /// <summary>
+    /// Gets or sets a custom error message to be used when an error occurs and ThrowErrorOnFailure is set to false.
+    /// If empty, the original error message will be used.
+    /// </summary>
+    /// <example></example>
+    [DefaultValue("")]
+    public string ErrorMessageOnFailure { get; set; }
 
     /// <summary>
     /// The length of time, in seconds, for which to delay a specific message. 
