@@ -43,7 +43,7 @@ public class UnitTests
         {
             Region = _region,
             UseDefaultCredentials = false,
-            CredentialsType = AWSCredentialsTypes.BasicAwsCredentials,
+            CredentialsType = AwsCredentialsTypes.BasicAwsCredentials,
             AccessKey = _accessKey,
             SecretKey = _secretKey,
             SessionToken = string.Empty,

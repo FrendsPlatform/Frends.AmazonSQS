@@ -30,7 +30,7 @@ public class AmazonSQS
     {
         try
         {
-            using var sqsClient = GetAmazonSQSClient(connection.UseDefaultCredentials, ConstructAWSCredentials(connection), connection.Region);
+            using var sqsClient = GetAmazonSqsClient(connection.UseDefaultCredentials, ConstructAwsCredentials(connection), connection.Region);
 
             var request = new SendMessageRequest
             {
@@ -50,7 +50,7 @@ public class AmazonSQS
         }
     }
 
-    private static AmazonSQSClient GetAmazonSQSClient(bool useDefaultCredentials, AWSCredentials awsCredentials, Regions region)
+    private static AmazonSQSClient GetAmazonSqsClient(bool useDefaultCredentials, AWSCredentials awsCredentials, Regions region)
     {
         // App.config or EC2 instance credentials?
         if (useDefaultCredentials)
@@ -67,17 +67,17 @@ public class AmazonSQS
             return new AmazonSQSClient(awsCredentials, RegionSelection(region));
     }
 
-    private static dynamic ConstructAWSCredentials(Connection connection)
+    private static dynamic ConstructAwsCredentials(Connection connection)
     {
         if (connection.UseDefaultCredentials)
             return null;
 
         return connection.CredentialsType switch
         {
-            AWSCredentialsTypes.BasicAwsCredentials => new BasicAWSCredentials(connection.AccessKey, connection.SecretKey),
-            AWSCredentialsTypes.AnonymousAwsCredentials => new AnonymousAWSCredentials(),
-            AWSCredentialsTypes.EnvironmentAwsCredentials => new EnvironmentVariablesAWSCredentials(),
-            AWSCredentialsTypes.SessionAwsCredentials => new SessionAWSCredentials(connection.AccessKey, connection.SecretKey, connection.SessionToken),
+            AwsCredentialsTypes.BasicAwsCredentials => new BasicAWSCredentials(connection.AccessKey, connection.SecretKey),
+            AwsCredentialsTypes.AnonymousAwsCredentials => new AnonymousAWSCredentials(),
+            AwsCredentialsTypes.EnvironmentAwsCredentials => new EnvironmentVariablesAWSCredentials(),
+            AwsCredentialsTypes.SessionAwsCredentials => new SessionAWSCredentials(connection.AccessKey, connection.SecretKey, connection.SessionToken),
             _ => throw new InvalidEnumArgumentException("Unknown credentials type."),
         };
     }

@@ -3,28 +3,28 @@
 /// <summary>
 /// AWS credentials types enumeration for different authentication methods.
 /// </summary>
-public enum AWSCredentialsTypes
+public enum AwsCredentialsTypes
 {
     /// <summary>
-    /// Anonymous AWS credentials for accessing public resources without authentication.
+    /// Anonymous Aws credentials for accessing public resources without authentication.
     /// Using these credentials, the client does not sign the request.
     /// </summary>
     AnonymousAwsCredentials,
     
     /// <summary>
-    /// Basic AWS credentials using access key and secret key.
+    /// Basic Aws credentials using access key and secret key.
     /// Consists of an AccessKey and SecretKey for standard authentication.
     /// </summary>
     BasicAwsCredentials,
     
     /// <summary>
-    /// AWS credentials loaded from environment variables or application configuration.
+    /// Aws credentials loaded from environment variables or application configuration.
     /// Credentials are retrieved from ConfigurationManager.AppSettings or environment variables.
     /// </summary>
     EnvironmentAwsCredentials,
     
     /// <summary>
-    /// Session AWS credentials with temporary access using session token.
+    /// Session Aws credentials with temporary access using session token.
     /// Consists of AccessKey, SecretKey, and SessionToken for temporary authentication.
     /// </summary>
     SessionAwsCredentials

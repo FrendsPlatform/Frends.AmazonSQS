@@ -23,12 +23,12 @@ public class Connection
     public bool UseDefaultCredentials { get; set; }
 
     /// <summary>
-    /// Type of AWS Credentials. 
+    /// Type of Aws Credentials. 
     /// See more https://docs.aws.amazon.com/sdkfornet1/latest/apidocs/html/T_Amazon_Runtime_AWSCredentials.htm
     /// </summary>
-    /// <example>AWSCredentialsTypes.BasicAwsCredentials</example>
-    [DefaultValue(AWSCredentialsTypes.BasicAwsCredentials)]
-    public AWSCredentialsTypes CredentialsType { get; set; }
+    /// <example>AwsCredentialsTypes.BasicAwsCredentials</example>
+    [DefaultValue(AwsCredentialsTypes.BasicAwsCredentials)]
+    public AwsCredentialsTypes CredentialsType { get; set; }
 
     /// <summary>
     /// Access key used in AmazonSQS connection.
