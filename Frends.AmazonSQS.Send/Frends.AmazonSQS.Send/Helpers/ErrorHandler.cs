@@ -24,10 +24,10 @@ public static class ErrorHandler
             throw exception;
         }
 
-        var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure) 
-            ? (exception?.Message ?? "Unknown error occurred") 
+        var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure)
+            ? (exception?.Message ?? "Unknown error occurred")
             : options.ErrorMessageOnFailure;
-        
+
         var error = new Error
         {
             Message = errorMessage,

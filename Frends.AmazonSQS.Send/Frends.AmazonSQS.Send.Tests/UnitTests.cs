@@ -190,7 +190,7 @@ public class UnitTests
     {
         using var cts = new CancellationTokenSource();
         cts.Cancel();
-        
+
         _options.ThrowErrorOnFailure = false;
         var result = await AmazonSQS.Send(_input, _connection, _options, cts.Token);
         Assert.IsFalse(result.Success);
@@ -202,10 +202,10 @@ public class UnitTests
     public async Task SendTest_CancellationToken_Timeout()
     {
         using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(1));
-        
+
         _options.ThrowErrorOnFailure = false;
         _options.DelaySeconds = 5; // This might cause timeout in very fast networks
-        
+
         var result = await AmazonSQS.Send(_input, _connection, _options, cts.Token);
         // Result could be success or cancelled depending on timing
         Assert.IsTrue(result.Success || result.Error != null);
@@ -320,7 +320,7 @@ public class UnitTests
             Region = _region,
             UseDefaultCredentials = true
         };
-        
+
         // This might fail in test environment, but we test the code path
         _options.ThrowErrorOnFailure = false;
         var defaultResult = await AmazonSQS.Send(_input, defaultConnection, _options, default);

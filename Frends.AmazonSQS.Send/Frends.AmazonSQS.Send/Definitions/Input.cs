@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Frends.AmazonSQS.Send.Definitions;
@@ -18,7 +18,7 @@ public class Input
     public string QueueUrl { get; set; }
 
     /// <summary>
-    /// The message to send. 
+    /// The message to send.
     /// The maximum string size is 256 KB.
     /// A message can include only XML, JSON, and unformatted text.
     /// </summary>

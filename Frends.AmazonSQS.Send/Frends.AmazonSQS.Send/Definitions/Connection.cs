@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Frends.AmazonSQS.Send.Definitions;
@@ -16,14 +16,14 @@ public class Connection
     public Regions Region { get; set; }
 
     /// <summary>
-    /// Credentials are loaded from the application's default configuration, and if unsuccessful from the Instance Profile service on an EC2 instance. 
+    /// Credentials are loaded from the application's default configuration, and if unsuccessful from the Instance Profile service on an EC2 instance.
     /// </summary>
     /// <example>true</example>
     [DefaultValue(false)]
     public bool UseDefaultCredentials { get; set; }
 
     /// <summary>
-    /// Type of Aws Credentials. 
+    /// Type of Aws Credentials.
     /// See more https://docs.aws.amazon.com/sdkfornet1/latest/apidocs/html/T_Amazon_Runtime_AWSCredentials.htm
     /// </summary>
     /// <example>AwsCredentialsTypes.BasicAwsCredentials</example>
