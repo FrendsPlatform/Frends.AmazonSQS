@@ -30,13 +30,13 @@ public class Result
     public long ContentLength { get; private set; }
 
     /// <summary>
-    /// Error message.
+    /// Error information.
     /// This value is generated when an exception occurs and Options.ThrowErrorOnFailure = false.
     /// </summary>
     /// <example>Error occured...</example>
-    public dynamic ErrorMessage { get; private set; }
+    public Error ErrorMessage { get; private set; }
 
-    internal Result(bool success, string messageId, string httpStatus, long contentLength, dynamic errorMessage)
+    internal Result(bool success, string messageId, string httpStatus, long contentLength, Error errorMessage)
     {
         Success = success;
         MessageId = messageId;

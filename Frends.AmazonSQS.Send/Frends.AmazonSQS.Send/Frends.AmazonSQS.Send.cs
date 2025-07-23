@@ -48,8 +48,13 @@ public class AmazonSQS
             if (options.ThrowErrorOnFailure)
                 throw;
             
-            var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure) ? ex.ToString() : options.ErrorMessageOnFailure;
-            return new Result(false, null, null, 0, errorMessage);
+            var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure) ? ex.Message : options.ErrorMessageOnFailure;
+            var error = new Error
+            {
+                Message = errorMessage,
+                AdditionalInfo = ex
+            };
+            return new Result(false, null, null, 0, error);
         }
     }
 
