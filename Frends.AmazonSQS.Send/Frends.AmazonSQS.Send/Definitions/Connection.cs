@@ -26,8 +26,8 @@ public class Connection
     /// Type of AWS Credentials. 
     /// See more https://docs.aws.amazon.com/sdkfornet1/latest/apidocs/html/T_Amazon_Runtime_AWSCredentials.htm
     /// </summary>
-    /// <example>AWSCredentialsTypes.BasicAWSCredentials</example>
-    [DefaultValue(AWSCredentialsTypes.BasicAWSCredentials)]
+    /// <example>AWSCredentialsTypes.BasicAwsCredentials</example>
+    [DefaultValue(AWSCredentialsTypes.BasicAwsCredentials)]
     public AWSCredentialsTypes CredentialsType { get; set; }
 
     /// <summary>
