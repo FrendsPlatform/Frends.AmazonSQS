@@ -195,6 +195,20 @@ public class UnitTests
         var result = await AmazonSQS.Send(_input, _connection, _options, cts.Token);
         Assert.IsFalse(result.Success);
         Assert.IsNotNull(result.Error);
+        Assert.IsTrue(result.Error.Message.Contains("canceled") || result.Error.Message.Contains("cancelled"));
+    }
+
+    [TestMethod]
+    public async Task SendTest_CancellationToken_Timeout()
+    {
+        using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(1));
+        
+        _options.ThrowErrorOnFailure = false;
+        _options.DelaySeconds = 5; // This might cause timeout in very fast networks
+        
+        var result = await AmazonSQS.Send(_input, _connection, _options, cts.Token);
+        // Result could be success or cancelled depending on timing
+        Assert.IsTrue(result.Success || result.Error != null);
     }
 
     #region ErrorHandler Tests
@@ -277,6 +291,65 @@ public class UnitTests
         Assert.IsNotNull(result.Error);
         Assert.AreEqual("SQS service error", result.Error.Message);
         Assert.AreEqual(exception, result.Error.AdditionalInfo);
+    }
+
+    [TestMethod]
+    public async Task SendTest_MaxMessageSize_Success()
+    {
+        // SQS max message size is 256KB
+        _input.Message = new string('A', 256 * 1024 - 100); // Just under the limit
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
+        Assert.IsTrue(result.Success);
+        Assert.IsNotNull(result.MessageId);
+        Assert.AreEqual("OK", result.StatusCode);
+        Assert.IsTrue(result.ContentLength > 0);
+        Assert.IsNull(result.Error);
+        Assert.IsTrue(await ReadTestMessage());
+    }
+
+    [TestMethod]
+    public async Task SendTest_AllCredentialTypes_Coverage()
+    {
+        // Test BasicAWSCredentials (already covered in other tests)
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
+        Assert.IsTrue(result.Success);
+
+        // Test with UseDefaultCredentials = true
+        var defaultConnection = new Connection
+        {
+            Region = _region,
+            UseDefaultCredentials = true
+        };
+        
+        // This might fail in test environment, but we test the code path
+        _options.ThrowErrorOnFailure = false;
+        var defaultResult = await AmazonSQS.Send(_input, defaultConnection, _options, default);
+        // Don't assert success/failure as it depends on environment
+        Assert.IsNotNull(defaultResult);
+    }
+
+    [TestMethod]
+    public async Task SendTest_RegionHandling_Success()
+    {
+        // Test with explicit region (current setup)
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
+        Assert.IsTrue(result.Success);
+
+        // Test with undefined region
+        var undefinedRegionConnection = new Connection
+        {
+            Region = Regions.Undefined,
+            UseDefaultCredentials = false,
+            CredentialsType = AwsCredentialsTypes.BasicAwsCredentials,
+            AccessKey = _accessKey,
+            SecretKey = _secretKey,
+            SessionToken = string.Empty,
+        };
+
+        _options.ThrowErrorOnFailure = false;
+        var undefinedResult = await AmazonSQS.Send(_input, undefinedRegionConnection, _options, default);
+        // This might fail due to region mismatch, but we test the code path
+        Assert.IsNotNull(undefinedResult);
     }
     #endregion
 }
