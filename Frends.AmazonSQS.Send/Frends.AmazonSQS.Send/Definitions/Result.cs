@@ -18,10 +18,10 @@ public class Result
     public string MessageId { get; private set; }
 
     /// <summary>
-    /// HTTP status of the operation.
+    /// Status code of the operation.
     /// </summary>
     /// <example>OK</example>
-    public string HttpStatus { get; private set; }
+    public string StatusCode { get; private set; }
 
     /// <summary>
     /// Length of the sent content.
@@ -34,14 +34,14 @@ public class Result
     /// This value is generated when an exception occurs and Options.ThrowErrorOnFailure = false.
     /// </summary>
     /// <example>Error occured...</example>
-    public Error ErrorMessage { get; private set; }
+    public Error Error { get; private set; }
 
-    internal Result(bool success, string messageId, string httpStatus, long contentLength, Error errorMessage)
+    internal Result(bool success, string messageId, string statusCode, long contentLength, Error error)
     {
         Success = success;
         MessageId = messageId;
-        HttpStatus = httpStatus;
+        StatusCode = statusCode;
         ContentLength = contentLength;
-        ErrorMessage = errorMessage;
+        Error = error;
     }
 }

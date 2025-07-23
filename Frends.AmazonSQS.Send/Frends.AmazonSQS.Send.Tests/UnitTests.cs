@@ -55,9 +55,9 @@ public class UnitTests
         var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNotNull(result.MessageId);
-        Assert.AreEqual("OK", result.HttpStatus);
+        Assert.AreEqual("OK", result.StatusCode);
         Assert.IsTrue(result.ContentLength > 0);
-        Assert.IsNull(result.ErrorMessage);
+        Assert.IsNull(result.Error);
         Assert.IsTrue(await ReadTestMessage());
     }
 
@@ -68,9 +68,9 @@ public class UnitTests
         var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNotNull(result.MessageId);
-        Assert.AreEqual("OK", result.HttpStatus);
+        Assert.AreEqual("OK", result.StatusCode);
         Assert.IsTrue(result.ContentLength > 0);
-        Assert.IsNull(result.ErrorMessage);
+        Assert.IsNull(result.Error);
         Assert.IsTrue(await ReadTestMessage());
     }
 
@@ -81,9 +81,9 @@ public class UnitTests
         var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNotNull(result.MessageId);
-        Assert.AreEqual("OK", result.HttpStatus);
+        Assert.AreEqual("OK", result.StatusCode);
         Assert.IsTrue(result.ContentLength > 0);
-        Assert.IsNull(result.ErrorMessage);
+        Assert.IsNull(result.Error);
         Assert.IsTrue(await ReadTestMessage());
     }
 
@@ -102,9 +102,9 @@ public class UnitTests
         var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsFalse(result.Success);
         Assert.IsNull(result.MessageId);
-        Assert.IsNull(result.HttpStatus);
+        Assert.IsNull(result.StatusCode);
         Assert.AreEqual(0, result.ContentLength);
-        Assert.AreEqual("The security token included in the request is invalid.", result.ErrorMessage.Message);
+        Assert.AreEqual("The security token included in the request is invalid.", result.Error.Message);
     }
 
     private async Task<bool> ReadTestMessage()
