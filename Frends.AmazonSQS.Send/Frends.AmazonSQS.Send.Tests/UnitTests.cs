@@ -131,6 +131,74 @@ public class UnitTests
     }
 
     [TestMethod]
+    public async Task SendTest_Invalid_QueueUrl_ThrowErrorOnFailure_False()
+    {
+        _input.QueueUrl = "https://sqs.invalid-region.amazonaws.com/123456789012/invalid-queue";
+        _options.ThrowErrorOnFailure = false;
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
+        Assert.IsFalse(result.Success);
+        Assert.IsNull(result.MessageId);
+        Assert.IsNull(result.StatusCode);
+        Assert.AreEqual(0, result.ContentLength);
+        Assert.IsNotNull(result.Error);
+        Assert.IsNotNull(result.Error.Message);
+    }
+
+    [TestMethod]
+    public async Task SendTest_Invalid_QueueUrl_ThrowErrorOnFailure_False_CustomErrorMessage()
+    {
+        _input.QueueUrl = "https://sqs.invalid-region.amazonaws.com/123456789012/invalid-queue";
+        _options.ThrowErrorOnFailure = false;
+        _options.ErrorMessageOnFailure = "Custom queue error message";
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
+        Assert.IsFalse(result.Success);
+        Assert.IsNull(result.MessageId);
+        Assert.IsNull(result.StatusCode);
+        Assert.AreEqual(0, result.ContentLength);
+        Assert.IsNotNull(result.Error);
+        Assert.AreEqual("Custom queue error message", result.Error.Message);
+    }
+
+    [TestMethod]
+    public async Task SendTest_EmptyMessage_Success()
+    {
+        _input.Message = "";
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
+        Assert.IsTrue(result.Success);
+        Assert.IsNotNull(result.MessageId);
+        Assert.AreEqual("OK", result.StatusCode);
+        Assert.IsTrue(result.ContentLength >= 0);
+        Assert.IsNull(result.Error);
+        Assert.IsTrue(await ReadTestMessage());
+    }
+
+    [TestMethod]
+    public async Task SendTest_LargeMessage_Success()
+    {
+        _input.Message = new string('A', 10000); // 10KB message
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
+        Assert.IsTrue(result.Success);
+        Assert.IsNotNull(result.MessageId);
+        Assert.AreEqual("OK", result.StatusCode);
+        Assert.IsTrue(result.ContentLength > 0);
+        Assert.IsNull(result.Error);
+        Assert.IsTrue(await ReadTestMessage());
+    }
+
+    [TestMethod]
+    public async Task SendTest_CancellationToken_Cancelled()
+    {
+        using var cts = new CancellationTokenSource();
+        cts.Cancel();
+        
+        _options.ThrowErrorOnFailure = false;
+        var result = await AmazonSQS.Send(_input, _connection, _options, cts.Token);
+        Assert.IsFalse(result.Success);
+        Assert.IsNotNull(result.Error);
+    }
+
+    #region ErrorHandler Tests
+    [TestMethod]
     public void ErrorHandler_Handle_ThrowErrorOnFailure_True()
     {
         var exception = new InvalidOperationException("Test exception");
@@ -172,4 +240,43 @@ public class UnitTests
         Assert.AreEqual("Custom error message", result.Error.Message);
         Assert.AreEqual(exception, result.Error.AdditionalInfo);
     }
+
+    [TestMethod]
+    public void ErrorHandler_Handle_NullException_ThrowErrorOnFailure_True()
+    {
+        var options = new Options { ThrowErrorOnFailure = true };
+
+        Assert.ThrowsException<ArgumentNullException>(() => ErrorHandler.Handle(null, options));
+    }
+
+    [TestMethod]
+    public void ErrorHandler_Handle_NullException_ThrowErrorOnFailure_False()
+    {
+        var options = new Options { ThrowErrorOnFailure = false, ErrorMessageOnFailure = "Null exception occurred" };
+
+        var result = ErrorHandler.Handle(null, options);
+
+        Assert.IsFalse(result.Success);
+        Assert.IsNull(result.MessageId);
+        Assert.IsNull(result.StatusCode);
+        Assert.AreEqual(0, result.ContentLength);
+        Assert.IsNotNull(result.Error);
+        Assert.AreEqual("Null exception occurred", result.Error.Message);
+        Assert.IsNull(result.Error.AdditionalInfo);
+    }
+
+    [TestMethod]
+    public void ErrorHandler_Handle_AmazonSQSException()
+    {
+        var exception = new Amazon.SQS.AmazonSQSException("SQS service error");
+        var options = new Options { ThrowErrorOnFailure = false };
+
+        var result = ErrorHandler.Handle(exception, options);
+
+        Assert.IsFalse(result.Success);
+        Assert.IsNotNull(result.Error);
+        Assert.AreEqual("SQS service error", result.Error.Message);
+        Assert.AreEqual(exception, result.Error.AdditionalInfo);
+    }
+    #endregion
 }

@@ -18,9 +18,16 @@ public static class ErrorHandler
     public static Result Handle(Exception exception, Options options)
     {
         if (options.ThrowErrorOnFailure)
+        {
+            if (exception == null)
+                throw new ArgumentNullException(nameof(exception));
             throw exception;
+        }
 
-        var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure) ? exception.Message : options.ErrorMessageOnFailure;
+        var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure) 
+            ? (exception?.Message ?? "Unknown error occurred") 
+            : options.ErrorMessageOnFailure;
+        
         var error = new Error
         {
             Message = errorMessage,
