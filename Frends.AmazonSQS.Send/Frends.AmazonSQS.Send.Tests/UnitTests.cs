@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Frends.AmazonSQS.Send.Definitions;
+using Frends.AmazonSQS.Send.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading;
@@ -127,5 +128,48 @@ public class UnitTests
             return true;
         }
         return false;
+    }
+
+    [TestMethod]
+    public void ErrorHandler_Handle_ThrowErrorOnFailure_True()
+    {
+        var exception = new InvalidOperationException("Test exception");
+        var options = new Options { ThrowErrorOnFailure = true };
+
+        Assert.ThrowsException<InvalidOperationException>(() => ErrorHandler.Handle(exception, options));
+    }
+
+    [TestMethod]
+    public void ErrorHandler_Handle_ThrowErrorOnFailure_False_DefaultMessage()
+    {
+        var exception = new InvalidOperationException("Test exception");
+        var options = new Options { ThrowErrorOnFailure = false, ErrorMessageOnFailure = string.Empty };
+
+        var result = ErrorHandler.Handle(exception, options);
+
+        Assert.IsFalse(result.Success);
+        Assert.IsNull(result.MessageId);
+        Assert.IsNull(result.StatusCode);
+        Assert.AreEqual(0, result.ContentLength);
+        Assert.IsNotNull(result.Error);
+        Assert.AreEqual("Test exception", result.Error.Message);
+        Assert.AreEqual(exception, result.Error.AdditionalInfo);
+    }
+
+    [TestMethod]
+    public void ErrorHandler_Handle_ThrowErrorOnFailure_False_CustomMessage()
+    {
+        var exception = new InvalidOperationException("Test exception");
+        var options = new Options { ThrowErrorOnFailure = false, ErrorMessageOnFailure = "Custom error message" };
+
+        var result = ErrorHandler.Handle(exception, options);
+
+        Assert.IsFalse(result.Success);
+        Assert.IsNull(result.MessageId);
+        Assert.IsNull(result.StatusCode);
+        Assert.AreEqual(0, result.ContentLength);
+        Assert.IsNotNull(result.Error);
+        Assert.AreEqual("Custom error message", result.Error.Message);
+        Assert.AreEqual(exception, result.Error.AdditionalInfo);
     }
 }
