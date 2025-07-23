@@ -52,7 +52,7 @@ public class UnitTests
     [TestMethod]
     public async Task SendTest_Success()
     {
-        var result = await AmazonSQS.Send(_connection, _input, _options, default);
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNotNull(result.MessageId);
         Assert.AreEqual("OK", result.HttpStatus);
@@ -65,7 +65,7 @@ public class UnitTests
     public async Task SendTest_Success_DelaySeconds_0()
     {
         _options.DelaySeconds = 0;
-        var result = await AmazonSQS.Send(_connection, _input, _options, default);
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNotNull(result.MessageId);
         Assert.AreEqual("OK", result.HttpStatus);
@@ -78,7 +78,7 @@ public class UnitTests
     public async Task SendTest_Success_DelaySeconds_10()
     {
         _options.DelaySeconds = 10;
-        var result = await AmazonSQS.Send(_connection, _input, _options, default);
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNotNull(result.MessageId);
         Assert.AreEqual("OK", result.HttpStatus);
@@ -91,7 +91,7 @@ public class UnitTests
     public void SendTest_Invalid_AccessKey_ThrowExceptionOnError_True()
     {
         _connection.AccessKey = "FOO";
-        Assert.ThrowsExceptionAsync<Amazon.SQS.AmazonSQSException>(async () => await AmazonSQS.Send(_connection, _input, _options, default));
+        Assert.ThrowsExceptionAsync<Amazon.SQS.AmazonSQSException>(async () => await AmazonSQS.Send(_input, _connection, _options, default));
     }
 
     [TestMethod]
@@ -99,7 +99,7 @@ public class UnitTests
     {
         _connection.AccessKey = "FOO";
         _options.ThrowExceptionOnError = false;
-        var result = await AmazonSQS.Send(_connection, _input, _options, default);
+        var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsFalse(result.Success);
         Assert.IsNull(result.MessageId);
         Assert.IsNull(result.HttpStatus);
