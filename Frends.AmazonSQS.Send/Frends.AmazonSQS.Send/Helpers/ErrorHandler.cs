@@ -19,8 +19,7 @@ public static class ErrorHandler
     {
         if (options.ThrowErrorOnFailure)
         {
-            if (exception == null)
-                throw new ArgumentNullException(nameof(exception));
+            ArgumentNullException.ThrowIfNull(exception);
             throw exception;
         }
 
