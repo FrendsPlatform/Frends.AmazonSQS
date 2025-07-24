@@ -2,8 +2,6 @@
 
 ## [2.0.0] - 2025-07-23
 
-## [VERSION_NUMBER] - 2025-07-23
-
 ### Added
 - ErrorMessageOnFailure property to Options class for custom error messages
 - Error class in Definitions folder with Message and AdditionalInfo properties

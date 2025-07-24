@@ -13,13 +13,13 @@ public class Options
     /// </summary>
     /// <example>true</example>
     [DefaultValue(true)]
-    public bool ThrowErrorOnFailure { get; set; }
+    public bool ThrowErrorOnFailure { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a custom error message to be used when an error occurs and ThrowErrorOnFailure is set to false.
     /// If empty, the original error message will be used.
     /// </summary>
-    /// <example></example>
+    /// <example>Failed to send message to AmazonSQS.</example>
     [DefaultValue("")]
     public string ErrorMessageOnFailure { get; set; }
 
@@ -32,5 +32,5 @@ public class Options
     /// </summary>
     /// <example>-1</example>
     [DefaultValue(-1)]
-    public int DelaySeconds { get; set; }
+    public int DelaySeconds { get; set; } = -1;
 }

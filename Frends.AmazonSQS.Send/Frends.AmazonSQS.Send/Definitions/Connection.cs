@@ -13,14 +13,14 @@ public class Connection
     /// </summary>
     /// <example>Regions.EuNorth1</example>
     [DefaultValue(Regions.EuNorth1)]
-    public Regions Region { get; set; }
+    public Regions Region { get; set; } = Regions.EuNorth1;
 
     /// <summary>
     /// Credentials are loaded from the application's default configuration, and if unsuccessful from the Instance Profile service on an EC2 instance.
     /// </summary>
     /// <example>true</example>
     [DefaultValue(false)]
-    public bool UseDefaultCredentials { get; set; }
+    public bool UseDefaultCredentials { get; set; } = false;
 
     /// <summary>
     /// Type of Aws Credentials.
@@ -28,7 +28,7 @@ public class Connection
     /// </summary>
     /// <example>AwsCredentialsTypes.BasicAwsCredentials</example>
     [DefaultValue(AwsCredentialsTypes.BasicAwsCredentials)]
-    public AwsCredentialsTypes CredentialsType { get; set; }
+    public AwsCredentialsTypes CredentialsType { get; set; } = AwsCredentialsTypes.BasicAwsCredentials;
 
     /// <summary>
     /// Access key used in AmazonSQS connection.
