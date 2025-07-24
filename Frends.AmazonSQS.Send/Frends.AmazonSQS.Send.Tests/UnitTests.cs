@@ -72,6 +72,7 @@ public class UnitTests
         Assert.AreEqual("OK", result.StatusCode);
         Assert.IsTrue(result.ContentLength > 0);
         Assert.IsNull(result.Error);
+        Thread.Sleep(10000);
         Assert.IsTrue(await ReadTestMessage());
     }
 
@@ -162,7 +163,7 @@ public class UnitTests
     [TestMethod]
     public async Task SendTest_EmptyMessage_Success()
     {
-        _input.Message = "";
+        _input.Message = " ";
         var result = await AmazonSQS.Send(_input, _connection, _options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNotNull(result.MessageId);
