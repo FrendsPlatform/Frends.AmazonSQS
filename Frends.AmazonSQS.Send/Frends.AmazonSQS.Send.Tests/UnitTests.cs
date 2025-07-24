@@ -8,20 +8,29 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using dotenv.net;
 
 namespace Frends.AmazonSQS.Send.Tests;
 
 [TestClass]
 public class UnitTests
 {
-    private readonly string _accessKey = Environment.GetEnvironmentVariable("AWS_SQS_ACCESS_KEY_ID") ?? throw new ArgumentException("No env variable");
-    private readonly string _secretKey = Environment.GetEnvironmentVariable("AWS_SQS_SECRET_ACCESS_KEY") ?? throw new ArgumentException("No env variable");
-    private readonly string _queueURL = Environment.GetEnvironmentVariable("AWS_SQS_QUEUE") ?? throw new ArgumentException("No env variable");
+    private readonly string? _accessKey;
+    private readonly string? _secretKey;
+    private readonly string? _queueURL;
     private readonly Regions _region = Regions.EuNorth1;
     private Input _input = new();
     private Connection _connection = new();
     private Options _options = new();
     private string _msg = "";
+
+    public UnitTests()
+    {
+        DotEnv.Load(options: new DotEnvOptions(probeForEnv: true));
+        _accessKey = Environment.GetEnvironmentVariable("AWS_SQS_ACCESS_KEY_ID");
+        _secretKey = Environment.GetEnvironmentVariable("AWS_SQS_SECRET_ACCESS_KEY");
+        _queueURL = Environment.GetEnvironmentVariable("AWS_SQS_QUEUE");
+    }
 
     [TestInitialize]
     public void SetUp()
@@ -92,7 +101,7 @@ public class UnitTests
     public void SendTest_Invalid_AccessKey_ThrowErrorOnFailure_True()
     {
         _connection.AccessKey = "FOO";
-        Assert.ThrowsExceptionAsync<Amazon.SQS.AmazonSQSException>(async () => await AmazonSQS.Send(_input, _connection, _options, default));
+        Assert.ThrowsExceptionAsync<AmazonSQSException>(async () => await AmazonSQS.Send(_input, _connection, _options, default));
     }
 
     [TestMethod]
@@ -282,7 +291,7 @@ public class UnitTests
     [TestMethod]
     public void ErrorHandler_Handle_AmazonSQSException()
     {
-        var exception = new Amazon.SQS.AmazonSQSException("SQS service error");
+        var exception = new AmazonSQSException("SQS service error");
         var options = new Options { ThrowErrorOnFailure = false };
 
         var result = ErrorHandler.Handle(exception, options);

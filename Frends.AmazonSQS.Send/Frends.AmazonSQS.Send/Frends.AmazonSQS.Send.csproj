@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFramework>net8.0</TargetFramework>
     <Version>2.0.0</Version>
     <Authors>Frends</Authors>
     <Copyright>Frends</Copyright>
@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.SQS" Version="3.7.300.32" />
+    <PackageReference Include="dotenv.net" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="migration.json" PackagePath="/" Pack="true" />
