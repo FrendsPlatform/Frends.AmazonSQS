@@ -25,7 +25,7 @@ public static class ErrorHandler
 
         var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure)
             ? (exception?.Message ?? "Unknown error occurred")
-            : options.ErrorMessageOnFailure;
+            : $"{options.ErrorMessageOnFailure}: {exception.Message}";
 
         var error = new Error
         {

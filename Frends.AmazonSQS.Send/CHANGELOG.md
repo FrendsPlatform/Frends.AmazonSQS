@@ -24,18 +24,6 @@
 ### Removed
 - [Breaking] ErrorMessage property from Result class (replaced with Error object)
 
-### Migration Notes
-To upgrade to the new version:
-1. Update parameter references to use the new Input, Connection, and Options class structure
-2. Replace AnonymousAWSCredentials with AnonymousAwsCredentials
-3. Replace BasicAWSCredentials with BasicAwsCredentials
-4. Replace EnvironmentAWSCredentials with EnvironmentAwsCredentials
-5. Replace SessionAWSCredentials with SessionAwsCredentials
-6. Replace ThrowExceptionOnError with ThrowErrorOnFailure
-7. Replace Result.HttpStatus with Result.StatusCode
-8. Replace Result.ErrorMessage usage with Result.Error.Message
-
-
 ## [1.0.0] - 2024-01-08
 ### Added
 - Initial implementation
