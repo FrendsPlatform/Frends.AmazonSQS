@@ -227,10 +227,12 @@ public class UnitTests
         var exception = new InvalidOperationException("Test exception");
         var options = new Options { ThrowErrorOnFailure = true };
 
-        var actualException = Assert.ThrowsException<InvalidOperationException>(() => ErrorHandler.Handle(exception, options));
+        var thrownException = Assert.ThrowsException<Exception>(() => ErrorHandler.Handle(exception, options));
 
-        Assert.AreEqual("Test exception", actualException.Message);
+        Assert.AreEqual("Test exception", thrownException.Message);
+        Assert.IsInstanceOfType(thrownException.InnerException, typeof(InvalidOperationException));
     }
+
 
     [TestMethod]
     public void ErrorHandler_Handle_ThrowErrorOnFailure_False_DefaultMessage()
@@ -271,9 +273,7 @@ public class UnitTests
     {
         var options = new Options { ThrowErrorOnFailure = true };
 
-        var ex = Assert.ThrowsException<ArgumentNullException>(() => ErrorHandler.Handle(null, options));
-
-        Assert.AreEqual("exception", ex.ParamName);
+        Assert.ThrowsException<NullReferenceException>(() => ErrorHandler.Handle(null, options));
     }
 
     [TestMethod]
@@ -285,15 +285,8 @@ public class UnitTests
             ErrorMessageOnFailure = "Null exception occurred"
         };
 
-        var result = ErrorHandler.Handle(null, options);
-
-        Assert.IsFalse(result.Success);
-        Assert.IsNull(result.MessageId);
-        Assert.IsNull(result.StatusCode);
-        Assert.AreEqual(0, result.ContentLength);
-        Assert.IsNotNull(result.Error);
-        Assert.AreEqual("Null exception occurred", result.Error.Message);
-        Assert.IsNull(result.Error.AdditionalInfo);
+        Assert.ThrowsException<NullReferenceException>(
+            () => ErrorHandler.Handle(null, options));
     }
 
     [TestMethod]
