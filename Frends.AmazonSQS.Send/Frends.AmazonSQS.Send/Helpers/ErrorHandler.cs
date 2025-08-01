@@ -19,19 +19,21 @@ public static class ErrorHandler
     {
         if (options.ThrowErrorOnFailure)
         {
-            ArgumentNullException.ThrowIfNull(exception);
-            throw exception;
+            if (string.IsNullOrEmpty(options.ErrorMessageOnFailure))
+                throw new Exception(exception.Message, exception);
+
+            throw new Exception(options.ErrorMessageOnFailure, exception);
         }
 
-        var errorMessage = string.IsNullOrEmpty(options.ErrorMessageOnFailure)
-            ? (exception?.Message ?? "Unknown error occurred")
-            : options.ErrorMessageOnFailure;
+        var errorMessage = !string.IsNullOrEmpty(options.ErrorMessageOnFailure)
+            ? $"{options.ErrorMessageOnFailure}: {exception.Message}"
+            : exception.Message;
 
-        var error = new Error
-        {
-            Message = errorMessage,
-            AdditionalInfo = exception
-        };
-        return new Result(false, null, null, 0, error);
+        return new Result(success: false, messageId: null, statusCode: null, contentLength: 0, 
+            error: new Error
+            {
+                Message = errorMessage,
+                AdditionalInfo = exception
+            });
     }
 }

@@ -6,20 +6,17 @@
 - ErrorMessageOnFailure property to Options class for custom error messages
 - Error class in Definitions folder with Message and AdditionalInfo properties
 - ErrorHandler class in Helpers folder for centralized error handling
-- Input class in Definitions folder for task input parameters
-- Connection class in Definitions folder for connection-related parameters
-- Options class in Definitions folder for optional task parameters
 
 ### Changed
-- [Breaking] Restructured task parameters into Input, Connection, and Options classes
-- [Breaking] Renamed AnonymousAWSCredentials to AnonymousAwsCredentials
-- [Breaking] Renamed BasicAWSCredentials to BasicAwsCredentials  
-- [Breaking] Renamed EnvironmentAWSCredentials to EnvironmentAwsCredentials
-- [Breaking] Renamed SessionAWSCredentials to SessionAwsCredentials
-- [Breaking] Renamed ThrowExceptionOnError to ThrowErrorOnFailure
-- [Breaking] Renamed HttpStatus property to StatusCode in Result class
+- Renamed AnonymousAWSCredentials to AnonymousAwsCredentials
+- Renamed BasicAWSCredentials to BasicAwsCredentials  
+- Renamed EnvironmentAWSCredentials to EnvironmentAwsCredentials
+- Renamed SessionAWSCredentials to SessionAwsCredentials
+- Renamed ThrowExceptionOnError to ThrowErrorOnFailure
+- Renamed HttpStatus property to StatusCode in Result class
 - Updated error handling to use centralized ErrorHandler.Handle method
 - ThrowErrorOnFailure now defaults to true for consistent behavior
+- Restructured task parameters into Input, Connection, and Options classes
 
 ### Removed
 - [Breaking] ErrorMessage property from Result class (replaced with Error object)
