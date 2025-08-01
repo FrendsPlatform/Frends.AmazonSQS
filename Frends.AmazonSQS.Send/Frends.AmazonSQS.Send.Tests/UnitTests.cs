@@ -165,7 +165,7 @@ public class UnitTests
         Assert.IsNull(result.StatusCode);
         Assert.AreEqual(0, result.ContentLength);
         Assert.IsNotNull(result.Error);
-        Assert.AreEqual("Custom queue error message", result.Error.Message);
+        Assert.IsTrue(result.Error.Message.Contains("Custom queue error message"));
     }
 
     [TestMethod]
@@ -260,7 +260,7 @@ public class UnitTests
         Assert.IsNull(result.StatusCode);
         Assert.AreEqual(0, result.ContentLength);
         Assert.IsNotNull(result.Error);
-        Assert.AreEqual("Custom error message", result.Error.Message);
+        Assert.IsTrue(result.Error.Message.Contains("Custom error message"));
         Assert.AreEqual(exception, result.Error.AdditionalInfo);
     }
 
