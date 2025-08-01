@@ -227,7 +227,9 @@ public class UnitTests
         var exception = new InvalidOperationException("Test exception");
         var options = new Options { ThrowErrorOnFailure = true };
 
-        Assert.ThrowsException<InvalidOperationException>(() => ErrorHandler.Handle(exception, options));
+        var actualException = Assert.ThrowsException<InvalidOperationException>(() => ErrorHandler.Handle(exception, options));
+
+        Assert.AreEqual("Test exception", actualException.Message);
     }
 
     [TestMethod]
@@ -269,13 +271,19 @@ public class UnitTests
     {
         var options = new Options { ThrowErrorOnFailure = true };
 
-        Assert.ThrowsException<ArgumentNullException>(() => ErrorHandler.Handle(null, options));
+        var ex = Assert.ThrowsException<ArgumentNullException>(() => ErrorHandler.Handle(null, options));
+
+        Assert.AreEqual("exception", ex.ParamName);
     }
 
     [TestMethod]
     public void ErrorHandler_Handle_NullException_ThrowErrorOnFailure_False()
     {
-        var options = new Options { ThrowErrorOnFailure = false, ErrorMessageOnFailure = "Null exception occurred" };
+        var options = new Options
+        {
+            ThrowErrorOnFailure = false,
+            ErrorMessageOnFailure = "Null exception occurred"
+        };
 
         var result = ErrorHandler.Handle(null, options);
 
