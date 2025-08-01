@@ -29,11 +29,12 @@ public static class ErrorHandler
             ? $"{options.ErrorMessageOnFailure}: {exception.Message}"
             : exception.Message;
 
-        return new Result(success: false, messageId: null, statusCode: null, contentLength: 0, 
-            error: new Error
-            {
-                Message = errorMessage,
-                AdditionalInfo = exception
-            });
+        var error = new Error
+        {
+            Message = errorMessage,
+            AdditionalInfo = exception
+        };
+
+        return new Result(false, null, null, 0, error);
     }
 }
