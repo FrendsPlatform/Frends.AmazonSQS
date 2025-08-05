@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace Frends.AmazonSQS.Send.Definitions;
 
@@ -13,16 +13,24 @@ public class Options
     /// </summary>
     /// <example>true</example>
     [DefaultValue(true)]
-    public bool ThrowExceptionOnError { get; set; }
+    public bool ThrowErrorOnFailure { get; set; } = true;
 
     /// <summary>
-    /// The length of time, in seconds, for which to delay a specific message. 
-    /// Valid values: -1 to 900. Maximum: 15 minutes. 
-    /// Messages with a positive value become available for processing after the delay period is finished. 
-    /// If value is -1, the default value for the queue applies. 
+    /// Gets or sets a custom error message to be used when an error occurs and ThrowErrorOnFailure is set to false.
+    /// If empty, the original error message will be used.
+    /// </summary>
+    /// <example>Failed to send message to AmazonSQS.</example>
+    [DefaultValue("")]
+    public string ErrorMessageOnFailure { get; set; }
+
+    /// <summary>
+    /// The length of time, in seconds, for which to delay a specific message.
+    /// Valid values: -1 to 900. Maximum: 15 minutes.
+    /// Messages with a positive value become available for processing after the delay period is finished.
+    /// If value is -1, the default value for the queue applies.
     /// When you set FifoQueue, you can't set DelaySeconds per message. You can set this parameter only on a queue level.
     /// </summary>
     /// <example>-1</example>
     [DefaultValue(-1)]
-    public int DelaySeconds { get; set; }
+    public int DelaySeconds { get; set; } = -1;
 }

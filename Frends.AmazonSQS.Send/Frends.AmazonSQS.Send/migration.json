@@ -1,0 +1,66 @@
+﻿[
+    {
+        "Task": "Frends.AmazonSQS.Send",
+        "Migrations": [
+            {
+                "Version": "2.0.0",
+                "Description": "Restructured task parameters into Input, Connection, and Options classes. Updated error handling and renamed properties for consistency.",
+                "Migration": [
+                    {
+                        "Type": "Map",
+                        "Source": "Connection.AnonymousAWSCredentials",
+                        "Target": "Connection.AnonymousAwsCredentials",
+                        "Maps": {
+                            "AnonymousAWSCredentials": "AnonymousAwsCredentials"
+                        }
+                    },
+                    {
+                        "Type": "Map",
+                        "Source": "Connection.BasicAWSCredentials",
+                        "Target": "Connection.BasicAwsCredentials",
+                        "Maps": {
+                            "BasicAWSCredentials": "BasicAwsCredentials"
+                        }
+                    },
+                    {
+                        "Type": "Map",
+                        "Source": "Connection.EnvironmentAWSCredentials",
+                        "Target": "Connection.EnvironmentAwsCredentials",
+                        "Maps": {
+                            "EnvironmentAWSCredentials": "EnvironmentAwsCredentials"
+                        }
+                    },
+                    {
+                        "Type": "Map",
+                        "Source": "Connection.SessionAWSCredentials",
+                        "Target": "Connection.SessionAwsCredentials",
+                        "Maps": {
+                            "SessionAWSCredentials": "SessionAwsCredentials"
+                        }
+                    },
+                    {
+                        "Type": "Map",
+                        "Source": "Options.ThrowExceptionOnError",
+                        "Target": "Options.ThrowErrorOnFailure",
+                        "Maps": {
+                            "ThrowExceptionOnError": "ThrowErrorOnFailure"
+                        }
+                    },
+                    {
+                        "Type": "Set",
+                        "Target": "Options.ErrorMessageOnFailure",
+                        "Value": "\"\""
+                    },
+                    {
+                        "Type": "Map",
+                        "Source": "Result.HttpStatus",
+                        "Target": "Result.StatusCode",
+                        "Maps": {
+                            "HttpStatus": "StatusCode"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

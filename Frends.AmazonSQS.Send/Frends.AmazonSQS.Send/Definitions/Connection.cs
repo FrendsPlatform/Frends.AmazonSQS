@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Frends.AmazonSQS.Send.Definitions;
@@ -13,22 +13,22 @@ public class Connection
     /// </summary>
     /// <example>Regions.EuNorth1</example>
     [DefaultValue(Regions.EuNorth1)]
-    public Regions Region { get; set; }
+    public Regions Region { get; set; } = Regions.EuNorth1;
 
     /// <summary>
-    /// Credentials are loaded from the application's default configuration, and if unsuccessful from the Instance Profile service on an EC2 instance. 
+    /// Credentials are loaded from the application's default configuration, and if unsuccessful from the Instance Profile service on an EC2 instance.
     /// </summary>
     /// <example>true</example>
     [DefaultValue(false)]
-    public bool UseDefaultCredentials { get; set; }
+    public bool UseDefaultCredentials { get; set; } = false;
 
     /// <summary>
-    /// Type of AWS Credentials. 
+    /// Type of Aws Credentials.
     /// See more https://docs.aws.amazon.com/sdkfornet1/latest/apidocs/html/T_Amazon_Runtime_AWSCredentials.htm
     /// </summary>
-    /// <example>AWSCredentialsTypes.BasicAWSCredentials</example>
-    [DefaultValue(AWSCredentialsTypes.BasicAWSCredentials)]
-    public AWSCredentialsTypes CredentialsType { get; set; }
+    /// <example>AwsCredentialsTypes.BasicAwsCredentials</example>
+    [DefaultValue(AwsCredentialsTypes.BasicAwsCredentials)]
+    public AwsCredentialsTypes CredentialsType { get; set; } = AwsCredentialsTypes.BasicAwsCredentials;
 
     /// <summary>
     /// Access key used in AmazonSQS connection.
