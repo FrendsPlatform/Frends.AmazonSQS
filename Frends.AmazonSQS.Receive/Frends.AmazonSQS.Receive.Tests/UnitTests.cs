@@ -47,7 +47,7 @@ public class UnitTests
             SessionToken = string.Empty,
         };
 
-        _msg = $"Frends.AmazonSQS.Receive.Tests.SendMessage() test.\nDatetime: {DateTime.Now.ToString("o")}";
+        _msg = $"Frends.AmazonSQS.Receive.Tests.SendMessage() test.\nDatetime: {DateTime.Now:o}";
         await SendTestMessage(_msg);
     }
 

@@ -1,6 +1,6 @@
-﻿using Amazon.Runtime;
-using Amazon.SQS.Model;
+﻿using Amazon.SQS.Model;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace Frends.AmazonSQS.Receive.Definitions;
@@ -38,7 +38,7 @@ public class Result
     {
         ContentLength = response.ContentLength;
         StatusCode = response.HttpStatusCode;
-        Messages = response.Messages;
-        ResponseMetadata = response.ResponseMetadata;
+        Messages = response.Messages.Select(e => new Message(e)).ToList();
+        ResponseMetadata = new ResponseMetadata(response.ResponseMetadata);
     }
 }
