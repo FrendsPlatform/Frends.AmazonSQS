@@ -82,8 +82,8 @@ public class UnitTests
         await SendTestMessages(5);
 
         var result = await AmazonSQS.Receive(connection, input, options, CancellationToken.None);
-        Assert.GreaterOrEqual(1, result.Messages.Count);
-        Assert.LessOrEqual(5, result.Messages.Count);
+        Assert.GreaterOrEqual(result.Messages.Count, 1);
+        Assert.LessOrEqual(result.Messages.Count, 5);
         Assert.That(result.Messages[0].Body.StartsWith($"{msg}: "), result.Messages[0].Body);
     }
 
