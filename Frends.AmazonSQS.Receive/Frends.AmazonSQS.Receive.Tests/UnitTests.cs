@@ -4,71 +4,96 @@ using Frends.AmazonSQS.Receive.Definitions;
 using Frends.AmazonSQS.Receive.Enums;
 using NUnit.Framework;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Amazon.SQS;
 
 namespace Frends.AmazonSQS.Receive.Tests;
 
 [TestFixture]
 public class UnitTests
 {
-    private readonly string _accessKey = Environment.GetEnvironmentVariable("AWS_SQS_ACCESS_KEY_ID") ?? throw new ArgumentException("");
-    private readonly string _secretKey = Environment.GetEnvironmentVariable("AWS_SQS_SECRET_ACCESS_KEY") ?? throw new ArgumentException("");
-    private readonly string _queueURL = Environment.GetEnvironmentVariable("AWS_SQS_QUEUE") ?? throw new ArgumentException("");
-    private readonly Region _region = 0;
+    public UnitTests()
+    {
+        DotNetEnv.Env.Load();
+        accessKey = Environment.GetEnvironmentVariable("AWS_SQS_ACCESS_KEY_ID") ?? throw new ArgumentException("");
+        secretKey = Environment.GetEnvironmentVariable("AWS_SQS_SECRET_ACCESS_KEY") ?? throw new ArgumentException("");
+        queueUrl = Environment.GetEnvironmentVariable("AWS_SQS_QUEUE") ?? throw new ArgumentException("");
 
-    private Input _input;
-    private Connection _connection;
-    private Options _options;
-    private string _msg;
+        sqsClient = AmazonSQS.GetAmazonSQSClient(false, new BasicAWSCredentials(accessKey, secretKey), Region);
+    }
+
+    private readonly string accessKey;
+    private readonly string secretKey;
+    private readonly string queueUrl;
+
+
+    private const Region Region = 0;
+    private readonly AmazonSQSClient sqsClient;
+    private string fullQueueUrl;
+    private string queueName;
+
+    private Input input;
+    private Connection connection;
+    private Options options;
+    private string msg;
 
     [SetUp]
     public async Task SetUp()
     {
-        _input = new Input
-        {
-            QueueUrl = _queueURL,
-            MaxNumberOfMessages = 10,
-        };
+        queueName = Guid.NewGuid().ToString();
+        fullQueueUrl = $"{queueUrl}{queueName}";
+        await sqsClient.CreateQueueAsync(new CreateQueueRequest { QueueName = queueName });
 
-        _options = new Options
+        input = new Input { QueueUrl = fullQueueUrl, MaxNumberOfMessages = 10, };
+        options = new Options { DeleteMessageAfterReceiving = true, VisibilityTimeout = 30, WaitTimeSeconds = 0 };
+        connection = new Connection
         {
-            DeleteMessageAfterReceiving = true,
-            VisibilityTimeout = 30,
-            WaitTimeSeconds = 0
-        };
-
-        _connection = new Connection
-        {
-            Region = _region,
+            Region = Region,
             UseDefaultCredentials = false,
             CredentialsType = AWSCredentialsType.BasicAWSCredentials,
-            AccessKey = _accessKey,
-            SecretKey = _secretKey,
+            AccessKey = accessKey,
+            SecretKey = secretKey,
             SessionToken = string.Empty,
         };
 
-        _msg = $"Frends.AmazonSQS.Receive.Tests.SendMessage() test.\nDatetime: {DateTime.Now.ToString("o")}";
-        await SendTestMessage(_msg);
+        msg = "test message";
+    }
+
+    [TearDown]
+    public async Task TearDown()
+    {
+        await sqsClient.DeleteQueueAsync(fullQueueUrl);
     }
 
     [Test]
-    public async Task Receive_Test()
+    public async Task Receive_SingleMessage()
     {
-        var result = await AmazonSQS.Receive(_connection, _input, _options, default);
+        await SendTestMessages(1);
+
+        var result = await AmazonSQS.Receive(connection, input, options, CancellationToken.None);
         Assert.AreEqual(1, result.Messages.Count);
-        Assert.AreEqual(_msg, result.Messages[0].Body);
+        Assert.That(result.Messages[0].Body.Contains(msg), result.Messages[0].Body);
     }
 
-    private async Task SendTestMessage(string msg)
+    [Test]
+    public async Task Receive_MultipleMessages()
     {
-        using var sqsclient = AmazonSQS.GetAmazonSQSClient(false, new BasicAWSCredentials(_accessKey, _secretKey), _region);
-        var request = new SendMessageRequest
-        {
-            MessageBody = msg,
-            QueueUrl = _queueURL,
-            DelaySeconds = 0,
-        };
+        await SendTestMessages(5);
 
-        await sqsclient.SendMessageAsync(request);
+        var result = await AmazonSQS.Receive(connection, input, options, CancellationToken.None);
+        Assert.GreaterOrEqual(1, result.Messages.Count);
+        Assert.LessOrEqual(5, result.Messages.Count);
+        Assert.That(result.Messages[0].Body.StartsWith($"{msg}: "), result.Messages[0].Body);
+    }
+
+    private async Task SendTestMessages(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            var request =
+                new SendMessageRequest { MessageBody = $"{msg}: {i}", QueueUrl = fullQueueUrl, DelaySeconds = 0 };
+            await sqsClient.SendMessageAsync(request);
+        }
     }
 }
