@@ -49,10 +49,8 @@ public class AmazonSQS
         foreach (var message in response.Messages)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var deleteMessageRequest = new DeleteMessageRequest
-            {
-                QueueUrl = input.QueueUrl, ReceiptHandle = message.ReceiptHandle
-            };
+            var deleteMessageRequest =
+                new DeleteMessageRequest { QueueUrl = input.QueueUrl, ReceiptHandle = message.ReceiptHandle, };
             await sqsClient.DeleteMessageAsync(deleteMessageRequest, cancellationToken);
         }
 
