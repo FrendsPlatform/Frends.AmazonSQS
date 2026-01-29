@@ -18,10 +18,10 @@ public class Input
     public string QueueUrl { get; set; }
 
     /// <summary>
-    /// The maximum number of messages to return. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10. 
+    /// The maximum number of messages to return. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+    /// Amazon does not provide an option to force an exact number of messages.
     /// </summary>
     /// <example>1</example>
-    [DisplayFormat(DataFormatString = "Text")]
     [DefaultValue(1)]
     public int MaxNumberOfMessages { get; set; }
 }
