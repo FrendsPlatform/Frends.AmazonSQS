@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## [2.1.0] - 2026-07-17
+
+### Changed
+- Made task class static to comply with Frends best practices
+
 ## [2.0.0] - 2025-07-23
 
 ### Added
