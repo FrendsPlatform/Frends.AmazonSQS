@@ -15,7 +15,7 @@ namespace Frends.AmazonSQS.Send;
 /// <summary>
 /// AmazonSQS Task.
 /// </summary>
-public class AmazonSQS
+public static class AmazonSQS
 {
     /// <summary>
     /// Frends Task for sending messages to AmazonSQS.
