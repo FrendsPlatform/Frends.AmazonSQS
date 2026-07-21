@@ -42,7 +42,7 @@ public class Result
     /// Error information.
     /// This value is generated when an exception occurs and Options.ThrowErrorOnFailure = false.
     /// </summary>
-    /// <example>Error occured...</example>
+    /// <example>Error occurred...</example>
     public Error Error { get; private set; }
 
     internal Result(ReceiveMessageResponse response)
