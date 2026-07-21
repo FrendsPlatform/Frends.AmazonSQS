@@ -71,7 +71,7 @@ public class UnitTests
     {
         await SendTestMessages(1);
 
-        var result = await AmazonSQS.Receive(connection, input, options, CancellationToken.None);
+        var result = await AmazonSQS.Receive(input, connection, options, CancellationToken.None);
         Assert.AreEqual(1, result.Messages.Count);
         Assert.That(result.Messages[0].Body.Contains(msg), result.Messages[0].Body);
     }
@@ -81,7 +81,7 @@ public class UnitTests
     {
         await SendTestMessages(5);
 
-        var result = await AmazonSQS.Receive(connection, input, options, CancellationToken.None);
+        var result = await AmazonSQS.Receive(input, connection, options, CancellationToken.None);
         Assert.GreaterOrEqual(result.Messages.Count, 1);
         Assert.LessOrEqual(result.Messages.Count, 5);
         Assert.That(result.Messages[0].Body.StartsWith($"{msg}: "), result.Messages[0].Body);
