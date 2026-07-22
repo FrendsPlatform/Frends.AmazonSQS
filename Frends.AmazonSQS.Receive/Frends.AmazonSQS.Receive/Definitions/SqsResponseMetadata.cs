@@ -16,6 +16,7 @@ public class SqsResponseMetadata
     /// <summary>
     /// Additional metadata returned in the response.
     /// </summary>
+    /// <example></example>
     public Dictionary<string, string> Metadata { get; private set; }
 
     internal SqsResponseMetadata(Amazon.Runtime.ResponseMetadata responseMetadata)
