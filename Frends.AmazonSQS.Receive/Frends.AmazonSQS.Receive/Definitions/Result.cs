@@ -23,8 +23,8 @@ public class Result
     /// <summary>
     /// Status code of the operation.
     /// </summary>
-    /// <example>OK</example>
-    public string StatusCode { get; private set; }
+    /// <example>200</example>
+    public int StatusCode { get; private set; }
 
     /// <summary>
     /// List of received messages.
@@ -49,7 +49,7 @@ public class Result
     {
         Success = true;
         ContentLength = response.ContentLength;
-        StatusCode = response.HttpStatusCode.ToString();
+        StatusCode = (int)response.HttpStatusCode;
         Messages = response.Messages.ConvertAll(m => new ReceivedMessage(m));
         ResponseMetadata = new SqsResponseMetadata(response.ResponseMetadata);
         Error = null;
