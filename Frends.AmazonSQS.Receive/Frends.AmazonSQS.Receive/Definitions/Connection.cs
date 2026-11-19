@@ -12,8 +12,9 @@ public class Connection
     /// <summary>
     /// Region selection, default EUNorth1. Undefined doesn't select region.
     /// </summary>
-    /// <example>Region.EuNorth1</example>
-    public Region Region { get; set; }
+    /// <example>Regions.EuNorth1</example>
+    [DefaultValue(Regions.EuNorth1)]
+    public Regions Region { get; set; } = Regions.EuNorth1;
 
     /// <summary>
     /// Credentials are loaded from the application's default configuration, and if unsuccessful from the Instance Profile service on an EC2 instance. 
@@ -25,8 +26,9 @@ public class Connection
     /// <summary>
     /// Type of AWS Credentials. See more https://docs.aws.amazon.com/sdkfornet1/latest/apidocs/html/T_Amazon_Runtime_AWSCredentials.htm
     /// </summary>
-    /// <example>AWSCredentialsType.BasicAWSCredentials</example>
-    public AWSCredentialsType CredentialsType { get; set; }
+    /// <example>AwsCredentialsTypes.BasicAwsCredentials</example>
+    [DefaultValue(AwsCredentialsTypes.BasicAwsCredentials)]
+    public AwsCredentialsTypes CredentialsType { get; set; } = AwsCredentialsTypes.BasicAwsCredentials;
 
     /// <summary>
     /// Access key used in AmazonSQS connection
