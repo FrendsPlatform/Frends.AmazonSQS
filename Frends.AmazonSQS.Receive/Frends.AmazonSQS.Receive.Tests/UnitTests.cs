@@ -29,7 +29,7 @@ public class UnitTests
     private readonly string queueUrl;
 
 
-    private const Region Region = 0;
+    private const Regions Region = 0;
     private readonly AmazonSQSClient sqsClient;
     private string fullQueueUrl;
     private string queueName;
@@ -52,7 +52,7 @@ public class UnitTests
         {
             Region = Region,
             UseDefaultCredentials = false,
-            CredentialsType = AWSCredentialsType.BasicAWSCredentials,
+            CredentialsType = AwsCredentialsTypes.BasicAwsCredentials,
             AccessKey = accessKey,
             SecretKey = secretKey,
             SessionToken = string.Empty,

@@ -67,15 +67,15 @@ public static class AmazonSQS
     }
 
     internal static AmazonSQSClient GetAmazonSQSClient(bool useDefaultCredentials, AWSCredentials awsCredentials,
-        Region region)
+        Regions region)
     {
         // App.config or EC2 instance credentials?
         if (useDefaultCredentials)
         {
-            return region == Region.Undefined ? new AmazonSQSClient() : new AmazonSQSClient(RegionSelection(region));
+            return region == Regions.Undefined ? new AmazonSQSClient() : new AmazonSQSClient(RegionSelection(region));
         }
 
-        return region == Region.Undefined
+        return region == Regions.Undefined
             ? new AmazonSQSClient(awsCredentials)
             : new AmazonSQSClient(awsCredentials, RegionSelection(region));
     }
@@ -87,11 +87,11 @@ public static class AmazonSQS
 
         return connection.CredentialsType switch
         {
-            AWSCredentialsType.BasicAWSCredentials => new BasicAWSCredentials(connection.AccessKey,
+            AwsCredentialsTypes.BasicAwsCredentials => new BasicAWSCredentials(connection.AccessKey,
                 connection.SecretKey),
-            AWSCredentialsType.AnonymousAWSCredentials => new AnonymousAWSCredentials(),
-            AWSCredentialsType.EnvironmentAWSCredentials => new EnvironmentVariablesAWSCredentials(),
-            AWSCredentialsType.SessionAWSCredentials => new SessionAWSCredentials(connection.AccessKey,
+            AwsCredentialsTypes.AnonymousAwsCredentials => new AnonymousAWSCredentials(),
+            AwsCredentialsTypes.EnvironmentAwsCredentials => new EnvironmentVariablesAWSCredentials(),
+            AwsCredentialsTypes.SessionAwsCredentials => new SessionAWSCredentials(connection.AccessKey,
                 connection.SecretKey, connection.SessionToken),
             _ => throw new InvalidEnumArgumentException("Unknown credentials type.")
         };
@@ -101,28 +101,28 @@ public static class AmazonSQS
     /// Excluded from code coverage because only a single region can be used with a test system.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    private static RegionEndpoint RegionSelection(Region region)
+    private static RegionEndpoint RegionSelection(Regions region)
     {
         return region switch
         {
-            Region.EuNorth1 => RegionEndpoint.EUNorth1,
-            Region.EuWest1 => RegionEndpoint.EUWest1,
-            Region.EuWest2 => RegionEndpoint.EUWest2,
-            Region.EuWest3 => RegionEndpoint.EUWest3,
-            Region.EuCentral1 => RegionEndpoint.EUCentral1,
-            Region.ApSoutheast1 => RegionEndpoint.APSoutheast1,
-            Region.ApSoutheast2 => RegionEndpoint.APSoutheast2,
-            Region.ApNortheast1 => RegionEndpoint.APNortheast1,
-            Region.ApNortheast2 => RegionEndpoint.APNortheast2,
-            Region.ApSouth1 => RegionEndpoint.APSouth1,
-            Region.CaCentral1 => RegionEndpoint.CACentral1,
-            Region.CnNorth1 => RegionEndpoint.CNNorth1,
-            Region.CnNorthWest1 => RegionEndpoint.CNNorthWest1,
-            Region.SaEast1 => RegionEndpoint.SAEast1,
-            Region.UsEast1 => RegionEndpoint.USEast1,
-            Region.UsEast2 => RegionEndpoint.USEast2,
-            Region.UsWest1 => RegionEndpoint.USWest1,
-            Region.UsWest2 => RegionEndpoint.USWest2,
+            Regions.EuNorth1 => RegionEndpoint.EUNorth1,
+            Regions.EuWest1 => RegionEndpoint.EUWest1,
+            Regions.EuWest2 => RegionEndpoint.EUWest2,
+            Regions.EuWest3 => RegionEndpoint.EUWest3,
+            Regions.EuCentral1 => RegionEndpoint.EUCentral1,
+            Regions.ApSoutheast1 => RegionEndpoint.APSoutheast1,
+            Regions.ApSoutheast2 => RegionEndpoint.APSoutheast2,
+            Regions.ApNortheast1 => RegionEndpoint.APNortheast1,
+            Regions.ApNortheast2 => RegionEndpoint.APNortheast2,
+            Regions.ApSouth1 => RegionEndpoint.APSouth1,
+            Regions.CaCentral1 => RegionEndpoint.CACentral1,
+            Regions.CnNorth1 => RegionEndpoint.CNNorth1,
+            Regions.CnNorthWest1 => RegionEndpoint.CNNorthWest1,
+            Regions.SaEast1 => RegionEndpoint.SAEast1,
+            Regions.UsEast1 => RegionEndpoint.USEast1,
+            Regions.UsEast2 => RegionEndpoint.USEast2,
+            Regions.UsWest1 => RegionEndpoint.USWest1,
+            Regions.UsWest2 => RegionEndpoint.USWest2,
             _ => RegionEndpoint.EUNorth1,
         };
     }

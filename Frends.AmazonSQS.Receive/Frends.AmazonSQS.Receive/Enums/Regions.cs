@@ -3,7 +3,7 @@
 /// <summary>
 /// AWS regions.
 /// </summary>
-public enum Region
+public enum Regions
 {
 #pragma warning disable CS1591 // Self explanatory.
     AfSouth1,

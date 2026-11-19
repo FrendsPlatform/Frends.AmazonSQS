@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0] - 2026-11-19
+
+### Breaking changes
+- **`Result.StatusCode`** is now a `string` (e.g. `OK`) instead of an `int`, matching the Send task.
+- **Region enum renamed**: `Region` is now `Regions`, matching the Send task.
+- **Credentials enum renamed**: `AWSCredentialsType` is now `AwsCredentialsTypes` and its members are renamed to `AnonymousAwsCredentials`, `BasicAwsCredentials`, `EnvironmentAwsCredentials` and `SessionAwsCredentials`.
+
+### Changed
+- `Connection.Region` now defaults to `EuNorth1`.
+- `Connection.CredentialsType` now defaults to `BasicAwsCredentials`.
+
 ## [2.0.0] - 2026-07-21
 
 ### Breaking changes
